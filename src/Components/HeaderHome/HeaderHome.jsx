@@ -1,8 +1,23 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import "../../assets/css/HeaderHome.css";
-
+import { useSelector } from "react-redux";
 const HeaderHome = () => {
+  const { userLogin } = useSelector((state) => state.userReducer);
+  const renderLoginButton = () => {
+    if (userLogin) {
+      return (
+        <NavLink to="/profile" className="nav-link mx-3 text-white">
+          Hello ! {userLogin.email}
+        </NavLink>
+      );
+    }
+    return (
+      <NavLink to="/login" className="nav-link mx-3 text-white">
+        Login
+      </NavLink>
+    );
+  };
   return (
     <div>
       <header className="header">
@@ -18,9 +33,10 @@ const HeaderHome = () => {
             </NavLink>
             <NavLink className="icon-cart" to="/carts" />
             <NavLink className="num">(1)</NavLink>
-            <NavLink to="/login" className="item-list">
+            {/* <NavLink to="/login" className="item-list">
               Login
-            </NavLink>
+            </NavLink> */}
+            {renderLoginButton()}
             <NavLink to="/register" className="item-list">
               Register
             </NavLink>
