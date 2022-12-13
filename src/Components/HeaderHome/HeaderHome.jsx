@@ -23,7 +23,7 @@ const HeaderHome = () => {
       <header className="header">
         <div className="header-content">
           <div className="header-left">
-            <NavLink to="/home">
+            <NavLink to="">
               <img src="./image/image 3.png" alt="logo" />
             </NavLink>
           </div>

@@ -10,6 +10,8 @@ import axios from "axios";
 // } from "../../util/config";
 const initialState = {
   userLogin: null,
+  userRegister: null,
+  sortBy: ["Name", "Price", "Quantity"],
 };
 
 const userReducer = createSlice({
@@ -19,10 +21,13 @@ const userReducer = createSlice({
     loginAction: (state, action) => {
       state.userLogin = action.payload;
     },
+    registerAction: (state, action) => {
+      state.userRegister = action.payload;
+    },
   },
 });
 
-export const { loginAction } = userReducer.actions;
+export const { loginAction, registerAction } = userReducer.actions;
 
 export default userReducer.reducer;
 
@@ -46,5 +51,21 @@ export const loginApi = (userLogin) => {
     //   //Gọi api getprofile
     //   const actionGetProfile = getProfileAction();
     //   dispatch(actionGetProfile);
+  };
+};
+export const registerApi = (userRegister) => {
+  return async (dispatch) => {
+    const result = await axios({
+      url: "https://shop.cyberlearn.vn/api/Users/signup",
+      method: "POST",
+
+      data: userRegister,
+      headers: {
+        "Content-Type": "application/json-patch+json",
+      },
+    });
+    console.log("Dangky", result.data.content);
+    const action = registerAction(result.data.content);
+    dispatch(action);
   };
 };
