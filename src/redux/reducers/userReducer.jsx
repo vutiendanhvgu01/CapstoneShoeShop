@@ -1,13 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-// import {
-//   ACCESS_TOKEN,
-//   //   getStore,
-//   getStoreJson,
-//   saveStore,
-//   saveStoreJson,
-//   USER_LOGIN,
-// } from "../../util/config";
+import {
+  ACCESS_TOKEN,
+  //   //   getStore,
+  //   getStoreJson,
+  saveStore,
+  saveStoreJson,
+  USER_LOGIN,
+} from "../../util/config";
 const initialState = {
   userLogin: null,
   userRegister: null,
@@ -43,8 +43,8 @@ export const loginApi = (userLogin) => {
     const action = loginAction(result.data.content);
     dispatch(action);
     //Lưu localstorage
-    //   saveStoreJson(USER_LOGIN, result.data.content);
-    //   saveStore(ACCESS_TOKEN, result.data.content.accessToken);
+    saveStoreJson(USER_LOGIN, result.data.content);
+    saveStore(ACCESS_TOKEN, result.data.content.accessToken);
 
     //   //Gọi axios lấy dữ liệu api từ token
 

@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { useDispatch } from "react-redux";
 import { registerApi } from "../../redux/reducers/userReducer";
-import { useSelector } from "react-redux";
+
 const Register = () => {
   const dispatch = useDispatch();
 
@@ -24,6 +24,9 @@ const Register = () => {
       password: yup.string().required("password cannot be blank!"),
       name: yup.string().required("name cannot be blank!"),
       phone: yup.string().required("phone cannot be blank!"),
+      passwordConfirm: yup
+        .string()
+        .oneOf([yup.ref("password"), null], "Passwords must match"),
     }),
     onSubmit: (values) => {
       delete values.passwordConfirm;
@@ -107,9 +110,13 @@ const Register = () => {
                   type="password"
                   name="passwordConfirm"
                   placeholder="password confirm"
+                  onChange={form.handleChange}
+                  onBlur={form.handleBlur}
                 />
               </div>
-              <p class="text-danger">{form.errors.changeConfirm}</p>
+              {form.errors.passwordConfirm && (
+                <p className="text-danger">{form.errors.passwordConfirm}</p>
+              )}
             </div>
             <div className="col-6">
               <div class="gender row pt-5">
