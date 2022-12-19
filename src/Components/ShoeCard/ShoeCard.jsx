@@ -17,7 +17,7 @@ const ShoeCard = ({ prod }) => {
           </p>
         </div>
         <div className="product-btn">
-          <NavLink to={`/detail/${prod.id}`} className="btn-buy">
+          <NavLink href="./detail.html?id=${product.id}" className="btn-buy">
             Buy now
           </NavLink>
           <NavLink to={`/detail/${prod.id}`} className="btn-price">
