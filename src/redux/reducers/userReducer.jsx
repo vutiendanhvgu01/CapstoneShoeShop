@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { history } from "../../index";
 import {
   ACCESS_TOKEN,
   //   //   getStore,
@@ -12,6 +13,7 @@ const initialState = {
   userLogin: null,
   userRegister: null,
   sortBy: ["Name", "Price", "Quantity"],
+  valid: false,
 };
 
 const userReducer = createSlice({
@@ -45,7 +47,7 @@ export const loginApi = (userLogin) => {
     //Lưu localstorage
     saveStoreJson(USER_LOGIN, result.data.content);
     saveStore(ACCESS_TOKEN, result.data.content.accessToken);
-
+    history.push("/profile");
     //   //Gọi axios lấy dữ liệu api từ token
 
     //   //Gọi api getprofile
