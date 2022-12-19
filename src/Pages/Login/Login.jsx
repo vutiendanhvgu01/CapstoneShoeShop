@@ -15,9 +15,9 @@ const Login = () => {
     validationSchema: yup.object().shape({
       email: yup
         .string()
-        .required("email cannot be blank!")
-        .email("email is invalid!"),
-      password: yup.string().required("password cannot be blank!"),
+        .required("Email cannot be blank!")
+        .email("Email is invalid!"),
+      password: yup.string().required("Password cannot be blank!"),
     }),
     onSubmit: (values) => {
       console.log(values);

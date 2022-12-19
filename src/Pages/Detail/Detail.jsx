@@ -14,11 +14,11 @@ const Detail = () => {
     dispatch(actionAsync);
   }, [params.id]);
   return (
-    <div>
+    <div className="container">
       <div className="row product-detail">
         <div className="col-5 product-img">
           <div className="img-trainer">
-            <img src={productDetail.image} alt="logo" />
+            <img src={productDetail.image} alt="logo" className='w-100' />
           </div>
         </div>
         <div className="col-7 product-describe">
