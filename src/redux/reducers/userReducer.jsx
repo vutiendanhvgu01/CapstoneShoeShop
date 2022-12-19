@@ -12,8 +12,10 @@ import {
 const initialState = {
   userLogin: null,
   userRegister: null,
+  userLoginResult: null,
   sortBy: ["Name", "Price", "Quantity"],
-  valid: false,
+  valid: true,
+  facebookToken: "",
 };
 
 const userReducer = createSlice({
@@ -26,10 +28,14 @@ const userReducer = createSlice({
     registerAction: (state, action) => {
       state.userRegister = action.payload;
     },
+    getProfileAsyncApi: (state, action) => {
+      state.userLogin = action.payload;
+    },
   },
 });
 
-export const { loginAction, registerAction } = userReducer.actions;
+export const { loginAction, registerAction, getProfileAsyncApi } =
+  userReducer.actions;
 
 export default userReducer.reducer;
 

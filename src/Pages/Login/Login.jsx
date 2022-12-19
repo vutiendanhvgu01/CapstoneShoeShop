@@ -5,7 +5,11 @@ import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { loginApi } from "../../redux/reducers/userReducer";
+import FacebookLogin from "react-facebook-login";
 const Login = () => {
+  const responseFacebook = (res) => {
+    console.log(res);
+  };
   const dispatch = useDispatch();
   const form = useFormik({
     initialValues: {
@@ -81,6 +85,16 @@ const Login = () => {
               </div>
               <span>Continnue with Facebook</span>
             </button>
+          </div>
+          <div class="form-control">
+            <FacebookLogin
+              appId="5729721340457529"
+              autoLoad={true}
+              fields="name,email,picture"
+              callback={responseFacebook}
+              cssClass="btn btn-primary"
+              icon="fa-facebook"
+            />
           </div>
         </form>
       </div>
