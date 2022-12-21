@@ -83,6 +83,22 @@ const initialState = {
       },
     ],
   },
+  cartProducts: [
+    {
+      id: 1,
+      name: "product1",
+      image: "https://i.pravatar.cc?u=1",
+      price: 1000,
+      quantity: 1,
+    },
+    {
+      id: 2,
+      name: "product2",
+      image: "https://i.pravatar.cc?u=2",
+      price: 2000,
+      quantity: 1,
+    },
+  ],
 };
 
 const productReducer = createSlice({
@@ -95,11 +111,14 @@ const productReducer = createSlice({
     getDetailProductAction: (state, action) => {
       state.productDetail = action.payload;
     },
+    addCartProduct: (state, action) => {
+      state.cartProducts.push(action.payload);
+    },
   },
 });
 
 export default productReducer.reducer;
-export const { getAllProductApi, getDetailProductAction } =
+export const { getAllProductApi, getDetailProductAction, addCartProduct } =
   productReducer.actions;
 
 export const getProductApi = () => {
