@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { saveStoreJson } from "../../util/config";
 const initialState = {
   arrProduct: [
     {
@@ -83,22 +84,7 @@ const initialState = {
       },
     ],
   },
-  cartProducts: [
-    {
-      id: 1,
-      name: "product1",
-      image: "https://i.pravatar.cc?u=1",
-      price: 1000,
-      quantity: 1,
-    },
-    {
-      id: 2,
-      name: "product2",
-      image: "https://i.pravatar.cc?u=2",
-      price: 2000,
-      quantity: 1,
-    },
-  ],
+  cartProducts: [],
 };
 
 const productReducer = createSlice({
@@ -112,14 +98,44 @@ const productReducer = createSlice({
       state.productDetail = action.payload;
     },
     addCartProduct: (state, action) => {
-      state.cartProducts.push(action.payload);
+      const productCart = state.cartProducts.find(
+        (prod) => prod.id == action.payload.id
+      );
+
+      if (productCart) {
+        productCart.quantity += 1;
+      } else {
+        state.cartProducts.push(action.payload);
+      }
+      localStorage.setItem("cartProduct", JSON.stringify(state.cartProducts));
+    },
+    deleteCartProduct: (state, action) => {
+      state.cartProducts = state.cartProducts.filter(
+        (item) => item.id !== action.payload
+      );
+    },
+    changeQuantity: (state, action) => {
+      const { id, quantity } = action.payload;
+      const cartProduct = state.cartProducts.find((item) => item.id === id);
+      if (cartProduct) {
+        cartProduct.quantity += quantity;
+        if (cartProduct.quantity < 1) {
+          alert("Số lượng nhỏ hơn 1");
+          cartProduct.quantity -= quantity;
+        }
+      }
     },
   },
 });
 
 export default productReducer.reducer;
-export const { getAllProductApi, getDetailProductAction, addCartProduct } =
-  productReducer.actions;
+export const {
+  getAllProductApi,
+  getDetailProductAction,
+  addCartProduct,
+  deleteCartProduct,
+  changeQuantity,
+} = productReducer.actions;
 
 export const getProductApi = () => {
   return async (dispatch) => {

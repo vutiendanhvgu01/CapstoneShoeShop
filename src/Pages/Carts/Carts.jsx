@@ -1,7 +1,13 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+
+import {
+  changeQuantity,
+  deleteCartProduct,
+} from "../../redux/reducers/productReducer";
 const Carts = () => {
   const { cartProducts } = useSelector((state) => state.productReducer);
+  const dispatch = useDispatch();
   return (
     <>
       <div className="container-fluid">
@@ -34,23 +40,49 @@ const Carts = () => {
                   </td>
                   <td>{prod.id}</td>
                   <td>
-                    <img src={prod.image} width={100} alt="..." />
+                    <img src={prod.image} width={50} alt="..." />
                   </td>
                   <td>{prod.name}</td>
                   <td>{prod.price}</td>
                   <td>
-                    <button className="btn btn-success">
+                    <button
+                      className="btn btn-success"
+                      onClick={() => {
+                        const itemQuantity = {
+                          id: prod.id,
+                          quantity: 1,
+                        };
+                        dispatch(changeQuantity(itemQuantity));
+                      }}
+                    >
                       <i class="fa fa-plus"></i>
                     </button>
                     <span className="cart-quantity">{prod.quantity}</span>
-                    <button className="btn btn-danger">
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => {
+                        const itemQuantity = {
+                          id: prod.id,
+                          quantity: -1,
+                        };
+                        dispatch(changeQuantity(itemQuantity));
+                      }}
+                    >
                       <i class="fa fa-minus"></i>
                     </button>
                   </td>
                   <td>{prod.quantity * prod.price}</td>
                   <td>
                     <button className="btn btn-success">EDIT</button>
-                    <button className="btn btn-danger">DELETE</button>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => {
+                        const action = deleteCartProduct(prod.id);
+                        dispatch(action);
+                      }}
+                    >
+                      DELETE
+                    </button>
                   </td>
                 </tr>
               );
