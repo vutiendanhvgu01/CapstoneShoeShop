@@ -5,14 +5,24 @@ import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { getProductDetailApi } from "../../redux/reducers/productReducer";
 import ShoeCard from "../../Components/ShoeCard/ShoeCard";
+import { addCartProduct } from "../../redux/reducers/productReducer";
+
 const Detail = () => {
   const { productDetail } = useSelector((state) => state.productReducer);
   const dispatch = useDispatch();
   const params = useParams();
+  console.log(params.id);
   useEffect(() => {
     const actionAsync = getProductDetailApi(params.id);
     dispatch(actionAsync);
   }, [params.id]);
+
+  const handleCart = (item) => {
+    const productCart = { ...item, quantity: 1 };
+    const action = addCartProduct(productCart);
+    dispatch(action);
+  };
+
   return (
     <div className="container">
       <div className="row product-detail">
@@ -42,7 +52,14 @@ const Detail = () => {
               <button className="minus">-</button>
             </div>
             <div>
-              <button className="btn-add-cart">Add to cart</button>
+              <button
+                className="btn-add-cart"
+                onClick={() => {
+                  handleCart(productDetail);
+                }}
+              >
+                Add to cart
+              </button>
             </div>
           </div>
         </div>
