@@ -4,15 +4,19 @@ const columns = [
   {
     title: 'ID',
     dataIndex: 'id',
+    width:100,
+    sorter:true,
   },
   {
     title: 'Image',
     dataIndex: 'image',
-    render:  (image) => <img src={image} alt='...'/>
+    render:  (image) => <img src={image} alt='...' style={{width:"100px",height:"100px"}}/>,
+    
  },
   {
     title: 'Price',
     dataIndex: 'price',
+    sortOrder:'acsend',
   },
   {
     title:'Quantity',
@@ -28,6 +32,12 @@ const columns = [
 const data = [
     {id:1,
     image:'https://images.theconversation.com/files/430483/original/file-20211105-9897-18ahqx2.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1200&h=1200.0&fit=crop'
+},
+{id:2,
+  image:'https://images.theconversation.com/files/430483/original/file-20211105-9897-18ahqx2.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1200&h=1200.0&fit=crop'
+},
+{id:3,
+  image:'https://images.theconversation.com/files/430483/original/file-20211105-9897-18ahqx2.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1200&h=1200.0&fit=crop'
 }
 
 ];
