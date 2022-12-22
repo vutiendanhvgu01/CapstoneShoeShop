@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../assets/css/Detail.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -11,6 +11,7 @@ const Detail = () => {
   const { productDetail } = useSelector((state) => state.productReducer);
   const dispatch = useDispatch();
   const params = useParams();
+  let [number, setNumber] = useState(1);
   console.log(params.id);
   useEffect(() => {
     const actionAsync = getProductDetailApi(params.id);
@@ -47,9 +48,29 @@ const Detail = () => {
             </div>
             <h2>{productDetail.price}$</h2>
             <div className="btn-quantity">
-              <button className="plus">+</button>
-              <input type="text" value="1" class="input" id="quantity" />
-              <button className="minus">-</button>
+              <button
+                className="plus"
+                onClick={() => {
+                  let newNum = number + 1;
+                  setNumber(newNum);
+                }}
+              >
+                +
+              </button>
+              <input type="number" value={number} class="input" id="quantity" />
+              <button
+                className="minus"
+                onClick={() => {
+                  if (number > 1) {
+                    let newNum = number - 1;
+                    setNumber(newNum);
+                  } else {
+                    return;
+                  }
+                }}
+              >
+                -
+              </button>
             </div>
             <div>
               <button

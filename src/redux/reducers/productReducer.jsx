@@ -85,6 +85,7 @@ const initialState = {
     ],
   },
   cartProducts: [],
+  totalQuantity: 0,
 };
 
 const productReducer = createSlice({
@@ -107,12 +108,20 @@ const productReducer = createSlice({
       } else {
         state.cartProducts.push(action.payload);
       }
+
+      state.totalQuantity = state.cartProducts.reduce((td, prod) => {
+        return td + prod.quantity;
+      }, 0);
       localStorage.setItem("cartProduct", JSON.stringify(state.cartProducts));
     },
     deleteCartProduct: (state, action) => {
       state.cartProducts = state.cartProducts.filter(
         (item) => item.id !== action.payload
       );
+
+      state.totalQuantity = state.cartProducts.reduce((td, prod) => {
+        return td + prod.quantity;
+      }, 0);
     },
     changeQuantity: (state, action) => {
       const { id, quantity } = action.payload;
