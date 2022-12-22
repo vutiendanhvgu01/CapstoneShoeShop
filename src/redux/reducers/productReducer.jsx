@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { saveStoreJson } from "../../util/config";
+import { http, saveStoreJson } from "../../util/config";
 const initialState = {
   arrProduct: [
     {
@@ -86,6 +86,7 @@ const initialState = {
   },
   cartProducts: [],
   totalQuantity: 0,
+  arrFavouriteProduct: []
 };
 
 const productReducer = createSlice({
@@ -134,6 +135,10 @@ const productReducer = createSlice({
         }
       }
     },
+    arrFavouriteProduct: (state, action) => {
+      state.arrFavouriteProduct  = action.payload;
+    },
+  
   },
 });
 
@@ -144,6 +149,7 @@ export const {
   addCartProduct,
   deleteCartProduct,
   changeQuantity,
+  changeLike
 } = productReducer.actions;
 
 export const getProductApi = () => {
@@ -166,3 +172,12 @@ export const getProductDetailApi = (id) => {
     dispatch(action);
   };
 };
+
+export const likeProductApi = (productId) => {
+  return async (dispatch) => {
+    const result = await http.get(`
+    /api/Users/like`,productId)
+    console.log(result.data.content)
+  }
+  
+}

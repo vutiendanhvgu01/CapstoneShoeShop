@@ -6,6 +6,7 @@ import { ACCESS_TOKEN, USER_LOGIN, removeStore } from "../../util/config";
 const HeaderHome = () => {
   const { userLogin, valid } = useSelector((state) => state.userReducer);
   const { totalQuantity } = useSelector((state) => state.productReducer);
+  const {cartProducts} = useSelector((state) => state.productReducer);
   const renderLoginButton = () => {
     if (userLogin) {
       return (
@@ -44,7 +45,7 @@ const HeaderHome = () => {
         <div className="header-content">
           <div className="header-left">
             <NavLink to="">
-              <img src="./image/image 3.png" alt="logo" />
+              <img src="./image/image3.png" alt="logo" />
             </NavLink>
           </div>
           <div className="header-right">
@@ -52,7 +53,7 @@ const HeaderHome = () => {
               <i class="fa fa-search"></i> Search
             </NavLink>
             <NavLink className="icon-cart" to="/carts" disable={valid} />
-            <NavLink className="num"> ({totalQuantity})</NavLink>
+            <NavLink className="num" to="/carts"> ({cartProducts.length})</NavLink>
             {/* <NavLink to="/login" className="item-list">
               Login
             </NavLink> */}

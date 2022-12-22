@@ -4,14 +4,11 @@ const columns = [
   {
     title: 'ID',
     dataIndex: 'id',
-    width:100,
-    sorter:true,
   },
   {
     title: 'Image',
     dataIndex: 'image',
-    render:  (image) => <img src={image} alt='...' style={{width:"100px",height:"100px"}}/>,
-    
+    render:  (image) => <img src={image} alt='...'/>
  },
   {
     title: 'Price',

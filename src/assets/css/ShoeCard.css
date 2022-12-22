@@ -75,3 +75,17 @@
     border:none;
     box-shadow: none;
   }
+
+
+  .btn.btn-like {
+    /* color:transparent; */
+    border: 1px solid black;
+  }
+  .btn.btn-like .svg-inline--fa{
+  
+  color:red
+  }
+
+  .btn.btn-like:hover i {
+    color: red;
+  }
