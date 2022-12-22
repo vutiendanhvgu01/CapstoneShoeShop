@@ -7,6 +7,7 @@ import OrderHistory from "./OrderHistory";
 const Profile = () => {
   const [component, setComponent] = useState(true)
   const { userProfile } = useSelector(state => state.userReducer)
+  const [update,setUpdate] =useState(true)
   const dispatch = useDispatch()
  
 
@@ -43,11 +44,11 @@ const Profile = () => {
             <div className="profile-left">
               <div className="form-group">
                 <p>Email</p>
-                <input type="email" className="form-control" value={userProfile?.email} disabled={true} />
+                <input type="email" className="form-control" value={userProfile?.email} disabled={update} />
               </div>
               <div className="form-group">
                 <p>Phone</p>
-                <input type="phone" className="form-control" value={userProfile?.phone} disabled={true} />
+                <input type="phone" className="form-control" value={userProfile?.phone} disabled={update} />
               </div>
             </div>
           </div>
@@ -55,11 +56,11 @@ const Profile = () => {
             <div className="profile-right">
               <div className="form-group">
                 <p>Name</p>
-                <input type="name" className="form-control" value={userProfile?.name} disabled={true} />
+                <input type="name" className="form-control" value={userProfile?.name} disabled={update} />
               </div>
               <div className="form-group">
                 <p>Password</p>
-                <input type="phone" className="form-control" value={`**********`} disabled={true} />
+                <input type="phone" className="form-control" value={`**********`} disabled={update} />
               </div>
               <div class="gender row pt-5">
                 <div className="col-2">
@@ -87,6 +88,9 @@ const Profile = () => {
                 </div>
               </div>
             </div>
+            <button className="btn btn-success" onClick ={() => {
+              setUpdate(false)
+            }}>Update Profile</button>
           </div>
         </div>
       </div>

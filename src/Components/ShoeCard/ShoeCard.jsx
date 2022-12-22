@@ -16,28 +16,25 @@ const ShoeCard = ({ prod}) => {
   }
   return <img src= {'...'} alt='unlike'/>
  }
-// console.log(getStore(ACCESS_TOKEN))
-//  const likeProductApi = async (prod) => {
-//   try {
-//     const result = await axios({
-//       url:`https://shop.cyberlearn.vn/api/Users/like?productId=${prod.id}`,
-//       method: 'GET',
-//       headers: {
-//         Authorization: 'Bearer ' + getStore(ACCESS_TOKEN),
-//       },
-//       data:prod.id
-     
-      
-//     })
-//     console.log(result.content.data)
+console.log(getStore(ACCESS_TOKEN))
+ const likeProductApi = async (prod) => {
+  try {
+    const result = await axios({
+      url:`https://shop.cyberlearn.vn/api/Users/like?productId=${prod.id}`,
+      method: 'GET',
+      header: {
+        Authorization: 'Bearer ' + getStore(ACCESS_TOKEN),
+      },
+    })
+    console.log(result.content.data)
 
-//   } catch (e) {
-//     console.log(e)
-//   }
+  } catch (e) {
+    console.log(e)
+  }
  
   
-//  }
-//  likeProductApi(prod)
+ }
+ 
 
  console.log(like)
   return (
@@ -47,7 +44,7 @@ const ShoeCard = ({ prod}) => {
         <button className="btn btn-like" onClick={() => {
         setLike(!like)
         if(like) {
-         
+          likeProductApi(prod)
         }
         }} >
           {renderLike()}
