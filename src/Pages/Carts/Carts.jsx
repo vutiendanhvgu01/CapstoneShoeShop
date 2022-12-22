@@ -36,7 +36,7 @@ const Carts = () => {
               return (
                 <tr key={index}>
                   <td>
-                    <input type="checkbox" checked={true} />
+                    <input type="checkbox" />
                   </td>
                   <td>{prod.id}</td>
                   <td>
