@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { ACCESS_TOKEN, USER_LOGIN, removeStore } from "../../util/config";
 const HeaderHome = () => {
   const { userLogin, valid } = useSelector((state) => state.userReducer);
+  const { totalQuantity } = useSelector((state) => state.productReducer);
   const renderLoginButton = () => {
     if (userLogin) {
       return (
@@ -51,7 +52,7 @@ const HeaderHome = () => {
               <i class="fa fa-search"></i> Search
             </NavLink>
             <NavLink className="icon-cart" to="/carts" disable={valid} />
-            <NavLink className="num">(1)</NavLink>
+            <NavLink className="num"> ({totalQuantity})</NavLink>
             {/* <NavLink to="/login" className="item-list">
               Login
             </NavLink> */}
