@@ -6,6 +6,7 @@ import { getProductApi } from "../../redux/reducers/productReducer";
 import { useEffect } from "react";
 const Home = () => {
   const { arrProduct } = useSelector((state) => state.productReducer);
+
   const dispatch = useDispatch();
   const getAllProductApi = async () => {
     const action = getProductApi();

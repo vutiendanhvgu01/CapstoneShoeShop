@@ -7,15 +7,19 @@ import {
   //   getStoreJson,
   saveStore,
   saveStoreJson,
+  getStoreJson,
   USER_LOGIN,
+  http,
 } from "../../util/config";
 const initialState = {
-  userLogin: null,
+  userLogin: getStoreJson(USER_LOGIN),
   userRegister: null,
   userLoginResult: null,
   sortBy: ["Name", "Price", "Quantity"],
   valid: true,
   facebookToken: "",
+  userProfile: null,
+  arrFavouriteProduct: []
 };
 
 const userReducer = createSlice({
@@ -31,13 +35,20 @@ const userReducer = createSlice({
     getProfileAsyncApi: (state, action) => {
       state.userLogin = action.payload;
     },
+    getProfile: (state, action) => {
+      state.userProfile = action.payload;
+    },
+    arrFavouriteProduct: (state, action) => {
+      state.arrFavouriteProduct  = action.payload;
   },
+}
 });
 
-export const { loginAction, registerAction, getProfileAsyncApi } =
+export const { loginAction, registerAction, getProfileAsyncApi,getProfile } =
   userReducer.actions;
 
 export default userReducer.reducer;
+
 
 export const loginApi = (userLogin) => {
   return async (dispatch) => {
@@ -57,16 +68,25 @@ export const loginApi = (userLogin) => {
     //   //Gọi axios lấy dữ liệu api từ token
 
     //   //Gọi api getprofile
-    //   const actionGetProfile = getProfileAction();
-    //   dispatch(actionGetProfile);
+      const actionGetProfile = getProfileApi();
+      dispatch(actionGetProfile);
   };
 };
+
+export const getProfileApi = () => {
+  return async dispatch => {
+    const result = await http.post(`/api/Users/getProfile`)
+    const action = getProfile(result.data.content)
+    dispatch(action)
+
+  }
+}
+
 export const registerApi = (userRegister) => {
   return async (dispatch) => {
     const result = await axios({
       url: "https://shop.cyberlearn.vn/api/Users/signup",
       method: "POST",
-
       data: userRegister,
       headers: {
         "Content-Type": "application/json-patch+json",

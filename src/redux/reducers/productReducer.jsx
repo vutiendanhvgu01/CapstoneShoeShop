@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { saveStoreJson } from "../../util/config";
+import { http, saveStoreJson } from "../../util/config";
 const initialState = {
   arrProduct: [
     {
@@ -86,7 +86,11 @@ const initialState = {
   },
   cartProducts: [],
   totalQuantity: 0,
+  // <<<<<<< HEAD
   numberQuantity: 1,
+  // =======
+  arrFavouriteProduct: [],
+  // >>>>>>> 9802d4cd5ed5f500e1410a3eefccd6719b548017
 };
 
 const productReducer = createSlice({
@@ -135,10 +139,17 @@ const productReducer = createSlice({
         }
       }
     },
+    // <<<<<<< HEAD
     increaseQuantity: (state, action) => {
       const { quantity } = action.payload;
       state.numberQuantity = state.numberQuantity + quantity;
     },
+    // =======
+    arrFavouriteProduct: (state, action) => {
+      state.arrFavouriteProduct = action.payload;
+    },
+
+    // >>>>>>> 9802d4cd5ed5f500e1410a3eefccd6719b548017
   },
 });
 
@@ -149,7 +160,11 @@ export const {
   addCartProduct,
   deleteCartProduct,
   changeQuantity,
+  // <<<<<<< HEAD
   increaseQuantity,
+  // =======
+  changeLike,
+  // >>>>>>> 9802d4cd5ed5f500e1410a3eefccd6719b548017
 } = productReducer.actions;
 
 export const getProductApi = () => {
@@ -170,5 +185,16 @@ export const getProductDetailApi = (id) => {
     });
     const action = getDetailProductAction(result.data.content);
     dispatch(action);
+  };
+};
+
+export const likeProductApi = (productId) => {
+  return async (dispatch) => {
+    const result = await http.get(
+      `
+    /api/Users/like`,
+      productId
+    );
+    console.log(result.data.content);
   };
 };
