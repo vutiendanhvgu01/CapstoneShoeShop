@@ -9,7 +9,6 @@ import {
 } from "../../redux/reducers/productReducer";
 import ShoeCard from "../../Components/ShoeCard/ShoeCard";
 import { addCartProduct } from "../../redux/reducers/productReducer";
-import { number } from "yup/lib/locale";
 
 const Detail = () => {
   const { productDetail, numberQuantity } = useSelector(
@@ -34,7 +33,7 @@ const Detail = () => {
       <div className="row product-detail">
         <div className="col-5 product-img">
           <div className="img-trainer">
-            <img src={productDetail.image} alt="logo" className='w-100' />
+            <img src={productDetail.image} alt="logo" className="w-100" />
           </div>
         </div>
         <div className="col-7 product-describe">
