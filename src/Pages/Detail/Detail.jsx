@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "../../assets/css/Detail.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -51,16 +51,18 @@ const Detail = () => {
               })}
             </div>
             <h2>{productDetail.price}$</h2>
-            <div
-              className="btn-quantity"
-              onClick={() => {
-                const itemQuantity = {
-                  quantity: 1,
-                };
-                dispatch(increaseQuantity(itemQuantity));
-              }}
-            >
-              <button className="plus">+</button>
+            <div className="btn-quantity">
+              <button
+                className="plus"
+                onClick={() => {
+                  const itemQuantity = {
+                    quantity: 1,
+                  };
+                  dispatch(increaseQuantity(itemQuantity));
+                }}
+              >
+                +
+              </button>
               <input
                 type="number"
                 value={numberQuantity}

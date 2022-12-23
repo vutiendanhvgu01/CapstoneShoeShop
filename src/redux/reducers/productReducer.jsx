@@ -143,6 +143,9 @@ const productReducer = createSlice({
     increaseQuantity: (state, action) => {
       const { quantity } = action.payload;
       state.numberQuantity = state.numberQuantity + quantity;
+      if (state.numberQuantity < 1) {
+        state.numberQuantity -= quantity;
+      }
     },
     // =======
     arrFavouriteProduct: (state, action) => {

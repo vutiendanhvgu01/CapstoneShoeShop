@@ -7,9 +7,9 @@ const HeaderHome = () => {
   const { userLogin, valid } = useSelector((state) => state.userReducer);
   const { totalQuantity } = useSelector((state) => state.productReducer);
   // <<<<<<< HEAD
-  console.log({ totalQuantity });
+
   // =======
-  const { cartProducts } = useSelector((state) => state.productReducer);
+
   // >>>>>>> 9802d4cd5ed5f500e1410a3eefccd6719b548017
   const renderLoginButton = () => {
     if (userLogin) {
@@ -58,8 +58,7 @@ const HeaderHome = () => {
             </NavLink>
             <NavLink className="icon-cart" to="/carts" disable={valid} />
             <NavLink className="num" to="/carts">
-              {" "}
-              ({cartProducts.length})
+              ({totalQuantity})
             </NavLink>
             {/* <NavLink to="/login" className="item-list">
               Login
