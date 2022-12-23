@@ -5,47 +5,54 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeLike, likeProductApi } from "../../redux/reducers/productReducer";
 import axios from "axios";
 import { ACCESS_TOKEN, getStore } from "../../util/config";
-const ShoeCard = ({ prod}) => {
+const ShoeCard = ({ prod }) => {
   const dispatch = useDispatch()
-  
- let [like,setLike] = useState(true)
-
- const renderLike = () => {
-  if(like) {
-    return <img src= {'...'} alt='like'/>
-  }
-  return <img src= {'...'} alt='unlike'/>
- }
-console.log(getStore(ACCESS_TOKEN))
- const likeProductApi = async (prod) => {
-  try {
-    const result = await axios({
-      url:`https://shop.cyberlearn.vn/api/Users/like?productId=${prod.id}`,
-      method: 'GET',
-      header: {
-        Authorization: 'Bearer ' + getStore(ACCESS_TOKEN),
-      },
+  let [like, setLike] = useState(false)
+  let access = getStore(ACCESS_TOKEN)
+  console.log(access);
+  let likeProduct = async (id) => {
+    let result = await axios({
+      url: `https://shop.cyberlearn.vn/api/Users/like?productId=${id}`,
+      method: "get",
+      headers: {
+        Authorization: `Bearer ${access}`
+      }
     })
-    console.log(result.content.data)
+    console.log(result.data.content)
 
-  } catch (e) {
-    console.log(e)
   }
- 
-  
- }
- 
+  let unLikeProduct = async (id) => {
+    let result = await axios({
+      url: `https://shop.cyberlearn.vn/api/Users/unlike?productId=${id}`,
+      method: "get",
+      headers: {
+        Authorization: `Bearer ${access}`
+      }
+    })
+    console.log(result.data.content)
 
- console.log(like)
+  }
+  const renderLike = () => {
+    if (like) {
+     
+      return <img src={'...'} alt='like' />
+    }
+   
+    return <img src={'...'} alt='unlike' />
+  }
+
+
+  console.log(like)
   return (
     <>
       <div className="product-item">
 
         <button className="btn btn-like" onClick={() => {
-        setLike(!like)
-        if(like) {
-          likeProductApi(prod)
-        }
+          setLike(!like)
+          if (like) {
+            likeProduct(prod.id)
+          } else { unLikeProduct(prod.id)}
+
         }} >
           {renderLike()}
         </button>
