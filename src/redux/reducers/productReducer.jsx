@@ -86,6 +86,7 @@ const initialState = {
   },
   cartProducts: [],
   totalQuantity: 0,
+  numberQuantity: 1,
 };
 
 const productReducer = createSlice({
@@ -103,8 +104,8 @@ const productReducer = createSlice({
         (prod) => prod.id == action.payload.id
       );
 
-      if (productCart) {
-        productCart.quantity += 1;
+      if (productCart && state.numberQuantity > 1) {
+        productCart.quantity += state.numberQuantity;
       } else {
         state.cartProducts.push(action.payload);
       }
@@ -134,6 +135,10 @@ const productReducer = createSlice({
         }
       }
     },
+    increaseQuantity: (state, action) => {
+      const { quantity } = action.payload;
+      state.numberQuantity = state.numberQuantity + quantity;
+    },
   },
 });
 
@@ -144,6 +149,7 @@ export const {
   addCartProduct,
   deleteCartProduct,
   changeQuantity,
+  increaseQuantity,
 } = productReducer.actions;
 
 export const getProductApi = () => {

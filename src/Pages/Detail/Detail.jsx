@@ -3,23 +3,28 @@ import "../../assets/css/Detail.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
-import { getProductDetailApi } from "../../redux/reducers/productReducer";
+import {
+  getProductDetailApi,
+  increaseQuantity,
+} from "../../redux/reducers/productReducer";
 import ShoeCard from "../../Components/ShoeCard/ShoeCard";
 import { addCartProduct } from "../../redux/reducers/productReducer";
+import { number } from "yup/lib/locale";
 
 const Detail = () => {
-  const { productDetail } = useSelector((state) => state.productReducer);
+  const { productDetail, numberQuantity } = useSelector(
+    (state) => state.productReducer
+  );
   const dispatch = useDispatch();
   const params = useParams();
-  let [number, setNumber] = useState(1);
-  console.log(params.id);
+
   useEffect(() => {
     const actionAsync = getProductDetailApi(params.id);
     dispatch(actionAsync);
   }, [params.id]);
 
   const handleCart = (item) => {
-    const productCart = { ...item, quantity: 1 };
+    const productCart = { ...item, quantity: numberQuantity };
     const action = addCartProduct(productCart);
     dispatch(action);
   };
@@ -47,26 +52,29 @@ const Detail = () => {
               })}
             </div>
             <h2>{productDetail.price}$</h2>
-            <div className="btn-quantity">
-              <button
-                className="plus"
-                onClick={() => {
-                  let newNum = number + 1;
-                  setNumber(newNum);
-                }}
-              >
-                +
-              </button>
-              <input type="number" value={number} class="input" id="quantity" />
+            <div
+              className="btn-quantity"
+              onClick={() => {
+                const itemQuantity = {
+                  quantity: 1,
+                };
+                dispatch(increaseQuantity(itemQuantity));
+              }}
+            >
+              <button className="plus">+</button>
+              <input
+                type="number"
+                value={numberQuantity}
+                class="input"
+                id="quantity"
+              />
               <button
                 className="minus"
                 onClick={() => {
-                  if (number > 1) {
-                    let newNum = number - 1;
-                    setNumber(newNum);
-                  } else {
-                    return;
-                  }
+                  const itemQuantity = {
+                    quantity: -1,
+                  };
+                  dispatch(increaseQuantity(itemQuantity));
                 }}
               >
                 -

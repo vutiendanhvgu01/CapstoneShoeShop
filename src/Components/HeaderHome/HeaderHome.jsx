@@ -6,6 +6,7 @@ import { ACCESS_TOKEN, USER_LOGIN, removeStore } from "../../util/config";
 const HeaderHome = () => {
   const { userLogin, valid } = useSelector((state) => state.userReducer);
   const { totalQuantity } = useSelector((state) => state.productReducer);
+  console.log({ totalQuantity });
   const renderLoginButton = () => {
     if (userLogin) {
       return (
