@@ -2,58 +2,60 @@ import React, { useState } from "react";
 import "../../assets/css/ShoeCard.css";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { changeLike, likeProductApi } from "../../redux/reducers/productReducer";
+import {
+  changeLike,
+  likeProductApi,
+} from "../../redux/reducers/productReducer";
 import axios from "axios";
 import { ACCESS_TOKEN, getStore } from "../../util/config";
 const ShoeCard = ({ prod }) => {
-  const dispatch = useDispatch()
-  let [like, setLike] = useState(false)
-  let access = getStore(ACCESS_TOKEN)
+  const dispatch = useDispatch();
+  let [like, setLike] = useState(false);
+  let access = getStore(ACCESS_TOKEN);
   console.log(access);
   let likeProduct = async (id) => {
     let result = await axios({
       url: `https://shop.cyberlearn.vn/api/Users/like?productId=${id}`,
       method: "get",
       headers: {
-        Authorization: `Bearer ${access}`
-      }
-    })
-    console.log(result.data.content)
-
-  }
+        Authorization: `Bearer ${access}`,
+      },
+    });
+    console.log(result.data.content);
+  };
   let unLikeProduct = async (id) => {
     let result = await axios({
       url: `https://shop.cyberlearn.vn/api/Users/unlike?productId=${id}`,
       method: "get",
       headers: {
-        Authorization: `Bearer ${access}`
-      }
-    })
-    console.log(result.data.content)
-
-  }
+        Authorization: `Bearer ${access}`,
+      },
+    });
+    console.log(result.data.content);
+  };
   const renderLike = () => {
     if (like) {
-     
-      return <img src={'...'} alt='like' />
+      return <img src="./image/like.jpg" alt="like" />;
     }
-   
-    return <img src={'...'} alt='unlike' />
-  }
 
+    return <img src="./image/unlike.jpg" alt="unlike" />;
+  };
 
-  console.log(like)
+  console.log(like);
   return (
     <>
       <div className="product-item">
-
-        <button className="btn btn-like" onClick={() => {
-          setLike(!like)
-          if (like) {
-            likeProduct(prod.id)
-          } else { unLikeProduct(prod.id)}
-
-        }} >
+        <button
+          className="btn btn-like"
+          onClick={() => {
+            setLike(!like);
+            if (like) {
+              likeProduct(prod.id);
+            } else {
+              unLikeProduct(prod.id);
+            }
+          }}
+        >
           {renderLike()}
         </button>
         <NavLink to={`/detail/${prod.id}`}>
@@ -78,9 +80,7 @@ const ShoeCard = ({ prod }) => {
           </NavLink>
         </div>
       </div>
-
     </>
-
   );
 };
 
