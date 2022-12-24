@@ -2,7 +2,7 @@ import React from "react";
 import "../../assets/css/Home.css";
 import ShoeCard from "../../Components/ShoeCard/ShoeCard";
 import { useSelector, useDispatch } from "react-redux";
-import { getProductApi } from "../../redux/reducers/productReducer";
+import { getProductApi, renderFavProduct } from "../../redux/reducers/productReducer";
 import { useEffect } from "react";
 const Home = () => {
   const { arrProduct } = useSelector((state) => state.productReducer);
@@ -15,6 +15,8 @@ const Home = () => {
   useEffect(() => {
     getAllProductApi();
   }, []);
+
+ 
   return (
     <>
       <div>

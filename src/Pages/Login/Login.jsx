@@ -1,16 +1,20 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { NavLink } from "react-router-dom";
 import "../../assets/css/Login.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { loginApi } from "../../redux/reducers/userReducer";
+import { arrFavouriteProduct, renderFavProduct } from "../../redux/reducers/productReducer";
 // import FacebookLogin from "react-facebook-login";
 const Login = () => {
+  const {arrFavouriteProduct} = useSelector(state => state.productReducer)
+  const dispatch = useDispatch()
+ 
+
   const responseFacebook = (res) => {
     console.log(res);
   };
-  const dispatch = useDispatch();
   const form = useFormik({
     initialValues: {
       email: "",

@@ -10,6 +10,7 @@ import {
   getStoreJson,
   USER_LOGIN,
   http,
+  getStore,
 } from "../../util/config";
 const initialState = {
   userLogin: getStoreJson(USER_LOGIN),
@@ -44,7 +45,7 @@ const userReducer = createSlice({
 }
 });
 
-export const { loginAction, registerAction, getProfileAsyncApi,getProfile } =
+export const { loginAction, registerAction, getProfileAsyncApi,getProfile,arrFavouriteProduct } =
   userReducer.actions;
 
 export default userReducer.reducer;
@@ -70,6 +71,8 @@ export const loginApi = (userLogin) => {
     //   //Gọi api getprofile
       const actionGetProfile = getProfileApi();
       dispatch(actionGetProfile);
+      const actionFav = renderFavProduct();
+      dispatch(actionFav);
   };
 };
 
@@ -97,3 +100,17 @@ export const registerApi = (userRegister) => {
     dispatch(action);
   };
 };
+
+export const renderFavProduct =  () => {
+  return async (dispatch) => {
+  let result = await axios({
+    url:`https://shop.cyberlearn.vn/api/Users/getproductfavorite`,
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${getStore(ACCESS_TOKEN)}`
+    }
+  })
+  const action = arrFavouriteProduct(result.data.content.productsFavorite)
+  dispatch(action)
+}
+}

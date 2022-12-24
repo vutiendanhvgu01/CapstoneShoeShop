@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { http, saveStoreJson } from "../../util/config";
+import { ACCESS_TOKEN, getStore, http, saveStoreJson } from "../../util/config";
 const initialState = {
   arrProduct: [
     {
@@ -167,6 +167,7 @@ export const {
   increaseQuantity,
   // =======
   changeLike,
+  arrFavouriteProduct
   // >>>>>>> 9802d4cd5ed5f500e1410a3eefccd6719b548017
 } = productReducer.actions;
 
@@ -201,3 +202,18 @@ export const likeProductApi = (productId) => {
     console.log(result.data.content);
   };
 };
+
+
+export const renderFavProduct =  () => {
+  return async (dispatch) => {
+  let result = await axios({
+    url:`https://shop.cyberlearn.vn/api/Users/getproductfavorite`,
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${getStore(ACCESS_TOKEN)}`
+    }
+  })
+  const action = arrFavouriteProduct(result.data.content.productsFavorite)
+  dispatch(action)
+}
+}

@@ -1,59 +1,83 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../../assets/css/ShoeCard.css";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   changeLike,
   likeProductApi,
+  renderFavProduct,
 } from "../../redux/reducers/productReducer";
 import axios from "axios";
 import { ACCESS_TOKEN, getStore } from "../../util/config";
+import { set } from "lodash";
 const ShoeCard = ({ prod }) => {
-  const dispatch = useDispatch();
-  let [like, setLike] = useState(false);
-  let access = getStore(ACCESS_TOKEN);
-  console.log(access);
+
   let likeProduct = async (id) => {
     let result = await axios({
       url: `https://shop.cyberlearn.vn/api/Users/like?productId=${id}`,
       method: "get",
       headers: {
-        Authorization: `Bearer ${access}`,
+        Authorization: `Bearer ${getStore(ACCESS_TOKEN)}`,
       },
     });
-    console.log(result.data.content);
   };
+  console.log(prod)
   let unLikeProduct = async (id) => {
     let result = await axios({
       url: `https://shop.cyberlearn.vn/api/Users/unlike?productId=${id}`,
       method: "get",
       headers: {
-        Authorization: `Bearer ${access}`,
+        Authorization: `Bearer ${getStore(ACCESS_TOKEN)}`,
       },
     });
-    console.log(result.data.content);
   };
+  const dispatch = useDispatch();
+  let [like, setLike] = useState()
+  const { arrFavouriteProduct } = useSelector(state => state.productReducer)
+  
+
+  useEffect(() => {
+    let findIndex = -1;
+    let indexFav = arrFavouriteProduct.findIndex((item) => {
+      return item.id === prod.id
+    })
+    findIndex = indexFav;
+    if (findIndex !== -1) {
+      setLike(true)
+    } else { setLike(false) }
+  }, [])
+
+  const handleLike = () => {
+    if (!like) {
+    
+      likeProduct(prod.id)
+      let actionFavProduct = renderFavProduct()
+      dispatch(actionFavProduct)
+
+    } else {
+    
+      unLikeProduct(prod.id)
+      let actionFavProduct = renderFavProduct()
+      dispatch(actionFavProduct)
+
+    }
+  }
+
+
   const renderLike = () => {
     if (like) {
       return <img src="./image/like.jpg" width={50} alt="like" />;
     }
-
     return <img src="./image/unlike.jpg" width={50} alt="unlike" />;
   };
-
-  console.log(like);
   return (
     <>
       <div className="product-item">
         <button
           className="btn btn-like"
           onClick={() => {
-            setLike(!like);
-            if (like) {
-              likeProduct(prod.id);
-            } else {
-              unLikeProduct(prod.id);
-            }
+            setLike(!like)
+            handleLike()
           }}
         >
           {renderLike()}

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { renderFavProduct } from "../../redux/reducers/productReducer";
 import { getProfileApi } from "../../redux/reducers/userReducer";
 import Favourite from "./Favourite";
 import OrderHistory from "./OrderHistory";
@@ -7,18 +8,18 @@ import OrderHistory from "./OrderHistory";
 const Profile = () => {
   const [component, setComponent] = useState(true)
   const { userProfile } = useSelector(state => state.userReducer)
-  const [update,setUpdate] =useState(true)
+  const [update, setUpdate] = useState(true)
+  const { arrFavouriteProduct } = useSelector(state => state.productReducer)
   const dispatch = useDispatch()
  
 
   useEffect(() => {
-    if(userProfile === null) {
+    if (userProfile === null) {
       const profile = getProfileApi()
-  
-    dispatch(profile)
-    console.log(userProfile)
+      dispatch(profile)
+      console.log(userProfile)
     }
-    
+
   }, [])
 
   let renderProfileFooter = () => {
@@ -72,7 +73,7 @@ const Profile = () => {
                     name="gender"
                     id="male"
                     checked={userProfile?.gender}
-                    // disabled={true}
+                  // disabled={true}
                   />
                   <label for='male'>Male</label>
                 </div>
@@ -88,7 +89,7 @@ const Profile = () => {
                 </div>
               </div>
             </div>
-            <button className="btn btn-success" onClick ={() => {
+            <button className="btn btn-success" onClick={() => {
               setUpdate(false)
             }}>Update Profile</button>
           </div>
