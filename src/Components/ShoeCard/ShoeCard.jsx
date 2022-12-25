@@ -61,9 +61,9 @@ const ShoeCard = ({ prod }) => {
 
   const renderLike = () => {
     if (like) {
-      return <img src="./image/like.jpg" width={50} alt="like" />;
+      return <p>❤️</p>
     }
-    return <img src="./image/unlike.jpg" width={50} alt="unlike" />;
+    return <p>♡</p>
   };
   return (
     <>
