@@ -107,8 +107,9 @@ const productReducer = createSlice({
       const productCart = state.cartProducts.find(
         (prod) => prod.id == action.payload.id
       );
-
-      if (productCart && state.numberQuantity > 1) {
+      if (productCart) {
+        productCart.quantity += 1;
+      } else if (state.numberQuantity > 1) {
         productCart.quantity += state.numberQuantity;
       } else {
         state.cartProducts.push(action.payload);
@@ -138,6 +139,9 @@ const productReducer = createSlice({
           cartProduct.quantity -= quantity;
         }
       }
+      state.totalQuantity = state.cartProducts.reduce((td, prod) => {
+        return td + prod.quantity;
+      }, 0);
     },
     // <<<<<<< HEAD
     increaseQuantity: (state, action) => {
@@ -167,7 +171,7 @@ export const {
   increaseQuantity,
   // =======
   changeLike,
-  arrFavouriteProduct
+  arrFavouriteProduct,
   // >>>>>>> 9802d4cd5ed5f500e1410a3eefccd6719b548017
 } = productReducer.actions;
 
@@ -203,17 +207,16 @@ export const likeProductApi = (productId) => {
   };
 };
 
-
-export const renderFavProduct =  () => {
+export const renderFavProduct = () => {
   return async (dispatch) => {
-  let result = await axios({
-    url:`https://shop.cyberlearn.vn/api/Users/getproductfavorite`,
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${getStore(ACCESS_TOKEN)}`
-    }
-  })
-  const action = arrFavouriteProduct(result.data.content.productsFavorite)
-  dispatch(action)
-}
-}
+    let result = await axios({
+      url: `https://shop.cyberlearn.vn/api/Users/getproductfavorite`,
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${getStore(ACCESS_TOKEN)}`,
+      },
+    });
+    const action = arrFavouriteProduct(result.data.content.productsFavorite);
+    dispatch(action);
+  };
+};

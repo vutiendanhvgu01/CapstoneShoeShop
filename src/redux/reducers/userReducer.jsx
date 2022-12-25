@@ -20,7 +20,8 @@ const initialState = {
   valid: true,
   facebookToken: "",
   userProfile: null,
-  arrFavouriteProduct: []
+  arrFavouriteProduct: [],
+  userOrder: null,
 };
 
 const userReducer = createSlice({
@@ -40,16 +41,20 @@ const userReducer = createSlice({
       state.userProfile = action.payload;
     },
     arrFavouriteProduct: (state, action) => {
-      state.arrFavouriteProduct  = action.payload;
+      state.arrFavouriteProduct = action.payload;
+    },
   },
-}
 });
 
-export const { loginAction, registerAction, getProfileAsyncApi,getProfile,arrFavouriteProduct } =
-  userReducer.actions;
+export const {
+  loginAction,
+  registerAction,
+  getProfileAsyncApi,
+  getProfile,
+  arrFavouriteProduct,
+} = userReducer.actions;
 
 export default userReducer.reducer;
-
 
 export const loginApi = (userLogin) => {
   return async (dispatch) => {
@@ -69,21 +74,20 @@ export const loginApi = (userLogin) => {
     //   //Gọi axios lấy dữ liệu api từ token
 
     //   //Gọi api getprofile
-      const actionGetProfile = getProfileApi();
-      dispatch(actionGetProfile);
-      const actionFav = renderFavProduct();
-      dispatch(actionFav);
+    const actionGetProfile = getProfileApi();
+    dispatch(actionGetProfile);
+    const actionFav = renderFavProduct();
+    dispatch(actionFav);
   };
 };
 
 export const getProfileApi = () => {
-  return async dispatch => {
-    const result = await http.post(`/api/Users/getProfile`)
-    const action = getProfile(result.data.content)
-    dispatch(action)
-
-  }
-}
+  return async (dispatch) => {
+    const result = await http.post(`/api/Users/getProfile`);
+    const action = getProfile(result.data.content);
+    dispatch(action);
+  };
+};
 
 export const registerApi = (userRegister) => {
   return async (dispatch) => {
@@ -101,16 +105,16 @@ export const registerApi = (userRegister) => {
   };
 };
 
-export const renderFavProduct =  () => {
+export const renderFavProduct = () => {
   return async (dispatch) => {
-  let result = await axios({
-    url:`https://shop.cyberlearn.vn/api/Users/getproductfavorite`,
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${getStore(ACCESS_TOKEN)}`
-    }
-  })
-  const action = arrFavouriteProduct(result.data.content.productsFavorite)
-  dispatch(action)
-}
-}
+    let result = await axios({
+      url: `https://shop.cyberlearn.vn/api/Users/getproductfavorite`,
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${getStore(ACCESS_TOKEN)}`,
+      },
+    });
+    const action = arrFavouriteProduct(result.data.content.productsFavorite);
+    dispatch(action);
+  };
+};

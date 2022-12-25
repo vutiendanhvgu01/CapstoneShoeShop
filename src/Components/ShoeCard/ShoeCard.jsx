@@ -11,7 +11,6 @@ import axios from "axios";
 import { ACCESS_TOKEN, getStore } from "../../util/config";
 import { set } from "lodash";
 const ShoeCard = ({ prod }) => {
-
   let likeProduct = async (id) => {
     let result = await axios({
       url: `https://shop.cyberlearn.vn/api/Users/like?productId=${id}`,
@@ -21,7 +20,7 @@ const ShoeCard = ({ prod }) => {
       },
     });
   };
-  console.log(prod)
+
   let unLikeProduct = async (id) => {
     let result = await axios({
       url: `https://shop.cyberlearn.vn/api/Users/unlike?productId=${id}`,
@@ -32,37 +31,33 @@ const ShoeCard = ({ prod }) => {
     });
   };
   const dispatch = useDispatch();
-  let [like, setLike] = useState()
-  const { arrFavouriteProduct } = useSelector(state => state.productReducer)
-  
+  let [like, setLike] = useState();
+  const { arrFavouriteProduct } = useSelector((state) => state.productReducer);
 
   useEffect(() => {
     let findIndex = -1;
     let indexFav = arrFavouriteProduct.findIndex((item) => {
-      return item.id === prod.id
-    })
+      return item.id === prod.id;
+    });
     findIndex = indexFav;
     if (findIndex !== -1) {
-      setLike(true)
-    } else { setLike(false) }
-  }, [])
+      setLike(true);
+    } else {
+      setLike(false);
+    }
+  }, []);
 
   const handleLike = () => {
     if (!like) {
-    
-      likeProduct(prod.id)
-      let actionFavProduct = renderFavProduct()
-      dispatch(actionFavProduct)
-
+      likeProduct(prod.id);
+      let actionFavProduct = renderFavProduct();
+      dispatch(actionFavProduct);
     } else {
-    
-      unLikeProduct(prod.id)
-      let actionFavProduct = renderFavProduct()
-      dispatch(actionFavProduct)
-
+      unLikeProduct(prod.id);
+      let actionFavProduct = renderFavProduct();
+      dispatch(actionFavProduct);
     }
-  }
-
+  };
 
   const renderLike = () => {
     if (like) {
@@ -76,8 +71,8 @@ const ShoeCard = ({ prod }) => {
         <button
           className="btn btn-like"
           onClick={() => {
-            setLike(!like)
-            handleLike()
+            setLike(!like);
+            handleLike();
           }}
         >
           {renderLike()}
