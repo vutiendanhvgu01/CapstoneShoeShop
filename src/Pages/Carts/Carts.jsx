@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import {
@@ -10,26 +10,34 @@ import { values } from "lodash";
 const Carts = () => {
   const { cartProducts } = useSelector((state) => state.productReducer);
   const { userLogin } = useSelector((state) => state.userReducer);
-  const [arrOrder,setArrOrder] = useState([])
+  const [order, setOrder] = useState()
   const dispatch = useDispatch();
 
   const orderProduct = () => {
     let arrOrders = cartProducts.map((prod) => {
-      const dataProduct = {
-        orderDetail: {
+      const productOrder = {
+        productDetail: {
           productId: prod.id,
           quantity: prod.quantity,
         },
-        email: userLogin.email
-      } 
-      return dataProduct
+      }
+      return productOrder
     });
-    setArrOrder(arrOrders)
+    const data = {
+      orderDetail: arrOrders,
+      email: userLogin.email
+    }
+    console.log(data)
+    setOrder(data)
   }
+
+  useEffect(() => {
+    orderProduct()
+  }, [cartProducts])
   const handleSubmit = (e) => {
     e.preventDefault();
-    orderProduct()
-    console.log(arrOrder)
+
+    console.log(order)
 
   };
   // const form = useFormik({
@@ -130,7 +138,7 @@ const Carts = () => {
                   <button
                     className="btn btn-warning"
                     type="submit"
-                    
+
                   >
                     SUBMIT ORDER
                   </button>
