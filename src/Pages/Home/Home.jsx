@@ -52,13 +52,13 @@ const Home = () => {
               <div className="row carousel-content">
                 <div className="col-7 trainer">
                   <div className="img-product">
-                    <img src={arrProduct[0].image} alt="" />
+                    <img src={arrProduct[0]?.image} alt="" />
                   </div>
                 </div>
                 <div className="col-5 prodName">
                   <div className="prodName-content">
-                    <h2>{arrProduct[0].name}</h2>
-                    <h3>{arrProduct[0].description}</h3>
+                    <h2>{arrProduct[0]?.name}</h2>
+                    <h3>{arrProduct[0]?.description}</h3>
                     <div className="btn-buy">
                       <button>Buy now</button>
                     </div>
@@ -70,13 +70,13 @@ const Home = () => {
               <div className="row carousel-content">
                 <div className="col-7 trainer">
                 <div className="img-product">
-                    <img src={arrProduct[1].image} alt="" />
+                    <img src={arrProduct[1]?.image} alt="" />
                   </div>
                 </div>
                 <div className="col-5 prodName">
                   <div className="prodName-content">
-                    <h2>{arrProduct[1].name}</h2>
-                    <h3>{arrProduct[1].description}</h3>
+                    <h2>{arrProduct[1]?.name}</h2>
+                    <h3>{arrProduct[1]?.description}</h3>
                     <div className="btn-buy">
                       <button>Buy now</button>
                     </div>
@@ -88,13 +88,13 @@ const Home = () => {
               <div className="row carousel-content">
                 <div className="col-7 trainer">
                 <div className="img-product">
-                    <img src={arrProduct[2].image} alt="" />
+                    <img src={arrProduct[2]?.image} alt="" />
                   </div>
                 </div>
                 <div className="col-5 prodName">
                   <div className="prodName-content">
-                    <h2>{arrProduct[2].name}</h2>
-                    <h3>{arrProduct[2].description}</h3>
+                    <h2>{arrProduct[2]?.name}</h2>
+                    <h3>{arrProduct[2]?.description}</h3>
                     <div className="btn-buy">
                       <button>Buy now</button>
                     </div>

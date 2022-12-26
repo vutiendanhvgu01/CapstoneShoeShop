@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import {
@@ -10,20 +10,27 @@ import { values } from "lodash";
 const Carts = () => {
   const { cartProducts } = useSelector((state) => state.productReducer);
   const { userLogin } = useSelector((state) => state.userReducer);
-
+  const [arrOrder,setArrOrder] = useState([])
   const dispatch = useDispatch();
-  const product = cartProducts.map((prod) => {
-    const orderDetail = {
-      productId: prod.id,
-      quantity: prod.quantity,
-    };
-    console.log(prod.quantity);
-    return orderDetail;
-  });
+
+  const orderProduct = () => {
+    let arrOrders = cartProducts.map((prod) => {
+      const dataProduct = {
+        orderDetail: {
+          productId: prod.id,
+          quantity: prod.quantity,
+        },
+        email: userLogin.email
+      } 
+      return dataProduct
+    });
+    setArrOrder(arrOrders)
+  }
   const handleSubmit = (e) => {
     e.preventDefault();
-    const value = [{ orderDetail: product, email: userLogin.email }];
-    console.log(value);
+    orderProduct()
+    console.log(arrOrder)
+
   };
   // const form = useFormik({
   //   initialValues: {
@@ -39,7 +46,7 @@ const Carts = () => {
       <div className="container-fluid">
         <h3>Carts</h3>
         <hr></hr>
-        <form>
+        <form onSubmit={handleSubmit}>
           <table className="table">
             <thead style={{ border: "1px solid transparent" }}>
               <tr className="text-center">
@@ -123,7 +130,7 @@ const Carts = () => {
                   <button
                     className="btn btn-warning"
                     type="submit"
-                    onSubmit={handleSubmit}
+                    
                   >
                     SUBMIT ORDER
                   </button>
