@@ -89,7 +89,7 @@ const initialState = {
   totalQuantity: 0,
 
   numberQuantity: 1,
-
+  orderSubmit: [],
   arrFavouriteProduct: [],
   historyProduct: [],
 };
@@ -110,23 +110,23 @@ const productReducer = createSlice({
       );
       if (productCart) {
         productCart.quantity += 1;
+        // localStorage.setItem("cartProduct", JSON.stringify(state.cartProducts));
       } else if (state.numberQuantity > 1) {
         productCart.quantity += state.numberQuantity;
       } else {
         state.cartProducts.push(action.payload);
+        // localStorage.setItem("cartProduct", JSON.stringify(state.cartProducts));
       }
 
       state.totalQuantity = state.cartProducts.reduce((td, prod) => {
         return td + prod.quantity;
       }, 0);
-      localStorage.setItem("cartProduct", JSON.stringify(state.cartProducts));
-      state.cartProducts = JSON.parse(localStorage.getItem("cartProduct"));
     },
     deleteCartProduct: (state, action) => {
       state.cartProducts = state.cartProducts.filter(
         (item) => item.id !== action.payload
       );
-
+      // localStorage.setItem("cartProduct", JSON.stringify(state.cartProducts));
       state.totalQuantity = state.cartProducts.reduce((td, prod) => {
         return td + prod.quantity;
       }, 0);
@@ -141,6 +141,7 @@ const productReducer = createSlice({
           cartProduct.quantity -= quantity;
         }
       }
+      // localStorage.setItem("cartProduct", JSON.stringify(state.cartProducts));
       state.totalQuantity = state.cartProducts.reduce((td, prod) => {
         return td + prod.quantity;
       }, 0);
@@ -152,6 +153,8 @@ const productReducer = createSlice({
       if (state.numberQuantity < 1) {
         state.numberQuantity -= quantity;
       }
+      console.log(state.numberQuantity);
+      // localStorage.setItem("cartProduct", JSON.stringify(state.cartProducts));
     },
     // =======
     arrFavouriteProduct: (state, action) => {
@@ -159,6 +162,9 @@ const productReducer = createSlice({
     },
     historyProductAction: (state, action) => {
       state.historyProduct = action.payload;
+    },
+    orderSubmitAction: (state, action) => {
+      state.orderSubmit = action.payload;
     },
     // >>>>>>> 9802d4cd5ed5f500e1410a3eefccd6719b548017
   },
@@ -177,6 +183,7 @@ export const {
   changeLike,
   arrFavouriteProduct,
   historyProductAction,
+  orderSubmitAction,
   // >>>>>>> 9802d4cd5ed5f500e1410a3eefccd6719b548017
 } = productReducer.actions;
 
@@ -227,7 +234,7 @@ export const renderFavProduct = () => {
 };
 export const renderHistoryProduct = () => {
   return async (dispatch) => {
-    let result = await axios({
+    const result = await axios({
       url: `https://shop.cyberlearn.vn/api/Users/getProfile`,
       method: "POST",
       headers: {
@@ -235,6 +242,21 @@ export const renderHistoryProduct = () => {
       },
     });
     const action = historyProductAction(result.data.content.ordersHistory);
+    dispatch(action);
+  };
+};
+export const orderSubmit = (orderSubmit) => {
+  return async (dispatch) => {
+    const result = await axios({
+      url: "https://shop.cyberlearn.vn/api/Users/order",
+      method: "post",
+      data: orderSubmit,
+      headers: {
+        "Content-Type": "application/json-patch+json",
+      },
+    });
+    console.log(result.data.content);
+    const action = orderSubmitAction(result.data.content);
     dispatch(action);
   };
 };

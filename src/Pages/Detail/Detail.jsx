@@ -9,6 +9,7 @@ import {
 } from "../../redux/reducers/productReducer";
 import ShoeCard from "../../Components/ShoeCard/ShoeCard";
 import { addCartProduct } from "../../redux/reducers/productReducer";
+import { number } from "yup";
 
 const Detail = () => {
   const { productDetail, numberQuantity } = useSelector(
@@ -23,7 +24,7 @@ const Detail = () => {
   }, [params.id]);
 
   const handleCart = (item) => {
-    const productCart = { ...item, quantity: numberQuantity };
+    const productCart = { ...item, quantity: Number(numberQuantity) };
     const action = addCartProduct(productCart);
     dispatch(action);
   };
