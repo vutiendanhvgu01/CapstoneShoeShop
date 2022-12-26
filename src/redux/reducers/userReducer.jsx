@@ -43,6 +43,9 @@ const userReducer = createSlice({
     arrFavouriteProduct: (state, action) => {
       state.arrFavouriteProduct = action.payload;
     },
+    historyProductAction: (state, action) => {
+      state.historyProduct = action.payload;
+    },
   },
 });
 

@@ -61,9 +61,9 @@ const ShoeCard = ({ prod }) => {
 
   const renderLike = () => {
     if (like) {
-      return <p>❤️</p>
+      return <p>❤️</p>;
     }
-    return <p>♡</p>
+    return <p>♡</p>;
   };
   return (
     <>

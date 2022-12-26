@@ -1,36 +1,36 @@
-import axios from 'axios'
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import ShoeCard from '../../Components/ShoeCard/ShoeCard'
-import { arrFavouriteProduct, renderFavProduct } from '../../redux/reducers/productReducer'
-import { ACCESS_TOKEN, getStore } from '../../util/config'
+import axios from "axios";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import ShoeCard from "../../Components/ShoeCard/ShoeCard";
+import {
+  arrFavouriteProduct,
+  renderFavProduct,
+} from "../../redux/reducers/productReducer";
+import { ACCESS_TOKEN, getStore } from "../../util/config";
 
 const Favourite = () => {
-
-  const dispatch = useDispatch()
-  const { arrFavouriteProduct } = useSelector(state => state.productReducer)
+  const dispatch = useDispatch();
+  const { arrFavouriteProduct } = useSelector((state) => state.productReducer);
   useEffect(() => {
-    let actionFavProduct = renderFavProduct()
-    dispatch(actionFavProduct)
-  }, [arrFavouriteProduct])
+    let actionFavProduct = renderFavProduct();
+    dispatch(actionFavProduct);
+  }, [arrFavouriteProduct]);
 
   const renderFavProducts = () => {
     return arrFavouriteProduct.map((item) => {
-      return <div className="col-4">
-        <ShoeCard prod={item} />
-      </div>
-    })
-  }
-
+      return (
+        <div className="col-4">
+          <ShoeCard prod={item} />
+        </div>
+      );
+    });
+  };
 
   return (
     <>
-      <div className="wrap-item row">
-
-        {renderFavProducts()}
-      </div>
+      <div className="wrap-item row">{renderFavProducts()}</div>
     </>
-  )
-}
+  );
+};
 
-export default Favourite
+export default Favourite;

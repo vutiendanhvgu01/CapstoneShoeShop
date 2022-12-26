@@ -6,28 +6,40 @@ import {
   deleteCartProduct,
 } from "../../redux/reducers/productReducer";
 import { values } from "lodash";
+
 const Carts = () => {
   const { cartProducts } = useSelector((state) => state.productReducer);
   const { userLogin } = useSelector((state) => state.userReducer);
+
   const dispatch = useDispatch();
-  const form = useFormik({
-    initialValues: {
-      orderDetail: {
-        productId: cartProducts.id,
-        quantity: cartProducts.quantity,
-      },
-      email: userLogin.email,
-    },
-    onSubmit: (values) => {
-      console.log(values);
-    },
+  const product = cartProducts.map((prod) => {
+    const orderDetail = {
+      productId: prod.id,
+      quantity: prod.quantity,
+    };
+    console.log(prod.quantity);
+    return orderDetail;
   });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const value = [{ orderDetail: product, email: userLogin.email }];
+    console.log(value);
+  };
+  // const form = useFormik({
+  //   initialValues: {
+  //     orderDetail: product,
+  //     email: userLogin.email,
+  //   },
+  //   onSubmit: (values) => {
+  //     console.log(values);
+  //   },
+  // });
   return (
     <>
       <div className="container-fluid">
         <h3>Carts</h3>
         <hr></hr>
-        <form onSubmit={form.handleSubmit}>
+        <form>
           <table className="table">
             <thead style={{ border: "1px solid transparent" }}>
               <tr className="text-center">
@@ -108,7 +120,11 @@ const Carts = () => {
             <tfoot style={{ border: "1px solid transparent" }}>
               <tr>
                 <td colspan="8" className="text-end">
-                  <button className="btn btn-warning" type="submit">
+                  <button
+                    className="btn btn-warning"
+                    type="submit"
+                    onSubmit={handleSubmit}
+                  >
                     SUBMIT ORDER
                   </button>
                 </td>

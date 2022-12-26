@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import staticMethods from "antd/es/notification";
 import axios from "axios";
 import { ACCESS_TOKEN, getStore, http, saveStoreJson } from "../../util/config";
 const initialState = {
@@ -86,11 +87,11 @@ const initialState = {
   },
   cartProducts: [],
   totalQuantity: 0,
-  // <<<<<<< HEAD
+
   numberQuantity: 1,
-  // =======
+
   arrFavouriteProduct: [],
-  // >>>>>>> 9802d4cd5ed5f500e1410a3eefccd6719b548017
+  historyProduct: [],
 };
 
 const productReducer = createSlice({
@@ -119,6 +120,7 @@ const productReducer = createSlice({
         return td + prod.quantity;
       }, 0);
       localStorage.setItem("cartProduct", JSON.stringify(state.cartProducts));
+      state.cartProducts = JSON.parse(localStorage.getItem("cartProduct"));
     },
     deleteCartProduct: (state, action) => {
       state.cartProducts = state.cartProducts.filter(
@@ -155,7 +157,9 @@ const productReducer = createSlice({
     arrFavouriteProduct: (state, action) => {
       state.arrFavouriteProduct = action.payload;
     },
-
+    historyProductAction: (state, action) => {
+      state.historyProduct = action.payload;
+    },
     // >>>>>>> 9802d4cd5ed5f500e1410a3eefccd6719b548017
   },
 });
@@ -172,6 +176,7 @@ export const {
   // =======
   changeLike,
   arrFavouriteProduct,
+  historyProductAction,
   // >>>>>>> 9802d4cd5ed5f500e1410a3eefccd6719b548017
 } = productReducer.actions;
 
@@ -217,6 +222,19 @@ export const renderFavProduct = () => {
       },
     });
     const action = arrFavouriteProduct(result.data.content.productsFavorite);
+    dispatch(action);
+  };
+};
+export const renderHistoryProduct = () => {
+  return async (dispatch) => {
+    let result = await axios({
+      url: `https://shop.cyberlearn.vn/api/Users/getProfile`,
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${getStore(ACCESS_TOKEN)}`,
+      },
+    });
+    const action = historyProductAction(result.data.content.ordersHistory);
     dispatch(action);
   };
 };

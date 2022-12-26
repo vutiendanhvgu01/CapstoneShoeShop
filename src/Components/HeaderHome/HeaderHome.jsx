@@ -6,11 +6,16 @@ import { ACCESS_TOKEN, USER_LOGIN, removeStore } from "../../util/config";
 const HeaderHome = () => {
   const { userLogin, valid } = useSelector((state) => state.userReducer);
   const { totalQuantity } = useSelector((state) => state.productReducer);
-  // <<<<<<< HEAD
-
-  // =======
-
-  // >>>>>>> 9802d4cd5ed5f500e1410a3eefccd6719b548017
+  // const handleClick = (e) => {
+  //   if (userLogin) {
+  //     valid = false;
+  //   } else {
+  //     valid = true;
+  //   }
+  //   if (valid) {
+  //     e.preventDefault();
+  //   }
+  // };
   const renderLoginButton = () => {
     if (userLogin) {
       return (
@@ -56,7 +61,7 @@ const HeaderHome = () => {
             <NavLink to="/search" className="item-list">
               <i class="fa fa-search"></i> Search
             </NavLink>
-            <NavLink className="icon-cart" to="/carts" disable={valid} />
+            <NavLink className="icon-cart" to="/carts" />
             <NavLink className="num" to="/carts">
               ({totalQuantity})
             </NavLink>
