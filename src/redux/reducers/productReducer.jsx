@@ -108,11 +108,10 @@ const productReducer = createSlice({
       const productCart = state.cartProducts.find(
         (prod) => prod.id == action.payload.id
       );
-      // if (productCart) {
-      //   productCart.quantity += 1;
-      //   // localStorage.setItem("cartProduct", JSON.stringify(state.cartProducts));
-      // } else
-      if (productCart && state.numberQuantity > 1) {
+      if (productCart) {
+        productCart.quantity += 1;
+        localStorage.setItem("cartProduct", JSON.stringify(state.cartProducts));
+      } else if (productCart && state.numberQuantity > 1) {
         productCart.quantity += state.numberQuantity;
 
         localStorage.setItem(
@@ -142,6 +141,7 @@ const productReducer = createSlice({
       state.totalQuantity = state.cartProducts.reduce((td, prod) => {
         return td + prod.quantity;
       }, 0);
+
       localStorage.setItem("cartProduct", JSON.stringify(state.cartProducts));
       localStorage.setItem(
         "totalQuantity",
