@@ -85,8 +85,8 @@ const initialState = {
       },
     ],
   },
-  cartProducts: [],
-  totalQuantity: 0,
+  cartProducts: JSON.parse(localStorage.getItem("cartProduct")),
+  totalQuantity: JSON.parse(localStorage.getItem("totalQuantity")) + 1,
 
   numberQuantity: 1,
   orderSubmit: [],
@@ -108,14 +108,26 @@ const productReducer = createSlice({
       const productCart = state.cartProducts.find(
         (prod) => prod.id == action.payload.id
       );
-      if (productCart) {
-        productCart.quantity += 1;
-        // localStorage.setItem("cartProduct", JSON.stringify(state.cartProducts));
-      } else if (state.numberQuantity > 1) {
+      // if (productCart) {
+      //   productCart.quantity += 1;
+      //   // localStorage.setItem("cartProduct", JSON.stringify(state.cartProducts));
+      // } else
+      if (productCart && state.numberQuantity > 1) {
         productCart.quantity += state.numberQuantity;
+
+        localStorage.setItem(
+          "totalQuantity",
+          JSON.stringify(state.totalQuantity)
+        );
+        localStorage.setItem("cartProduct", JSON.stringify(state.cartProducts));
       } else {
         state.cartProducts.push(action.payload);
-        // localStorage.setItem("cartProduct", JSON.stringify(state.cartProducts));
+
+        localStorage.setItem(
+          "totalQuantity",
+          JSON.stringify(state.totalQuantity)
+        );
+        localStorage.setItem("cartProduct", JSON.stringify(state.cartProducts));
       }
 
       state.totalQuantity = state.cartProducts.reduce((td, prod) => {
@@ -126,10 +138,15 @@ const productReducer = createSlice({
       state.cartProducts = state.cartProducts.filter(
         (item) => item.id !== action.payload
       );
-      // localStorage.setItem("cartProduct", JSON.stringify(state.cartProducts));
+
       state.totalQuantity = state.cartProducts.reduce((td, prod) => {
         return td + prod.quantity;
       }, 0);
+      localStorage.setItem("cartProduct", JSON.stringify(state.cartProducts));
+      localStorage.setItem(
+        "totalQuantity",
+        JSON.stringify(state.totalQuantity)
+      );
     },
     changeQuantity: (state, action) => {
       const { id, quantity } = action.payload;
@@ -145,6 +162,11 @@ const productReducer = createSlice({
       state.totalQuantity = state.cartProducts.reduce((td, prod) => {
         return td + prod.quantity;
       }, 0);
+      localStorage.setItem("cartProduct", JSON.stringify(state.cartProducts));
+      localStorage.setItem(
+        "totalQuantity",
+        JSON.stringify(state.totalQuantity)
+      );
     },
     // <<<<<<< HEAD
     increaseQuantity: (state, action) => {
@@ -166,7 +188,6 @@ const productReducer = createSlice({
     orderSubmitAction: (state, action) => {
       state.orderSubmit = action.payload;
     },
-    // >>>>>>> 9802d4cd5ed5f500e1410a3eefccd6719b548017
   },
 });
 
@@ -177,14 +198,13 @@ export const {
   addCartProduct,
   deleteCartProduct,
   changeQuantity,
-  // <<<<<<< HEAD
+
   increaseQuantity,
-  // =======
+
   changeLike,
   arrFavouriteProduct,
   historyProductAction,
   orderSubmitAction,
-  // >>>>>>> 9802d4cd5ed5f500e1410a3eefccd6719b548017
 } = productReducer.actions;
 
 export const getProductApi = () => {
@@ -246,14 +266,12 @@ export const renderHistoryProduct = () => {
   };
 };
 export const orderSubmit = (orderSubmit) => {
+  console.log(orderSubmit);
   return async (dispatch) => {
     const result = await axios({
       url: "https://shop.cyberlearn.vn/api/Users/order",
       method: "post",
       data: orderSubmit,
-      headers: {
-        "Content-Type": "application/json-patch+json",
-      },
     });
     console.log(result.data.content);
     const action = orderSubmitAction(result.data.content);

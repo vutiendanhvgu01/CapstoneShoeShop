@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Table } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { historyProductAction } from "../../redux/reducers/productReducer";
+import { renderHistoryProduct } from "../../redux/reducers/productReducer";
 const columns = [
   {
     title: "ID",
@@ -55,7 +55,7 @@ const OrderHistory = () => {
   console.log(historyProduct);
   const dispatch = useDispatch();
   useEffect(() => {
-    const action = historyProductAction();
+    const action = renderHistoryProduct();
     dispatch(action);
   }, [historyProduct]);
   return (
