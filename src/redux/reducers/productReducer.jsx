@@ -263,6 +263,7 @@ export const renderHistoryProduct = () => {
     });
     const action = historyProductAction(result.data.content.ordersHistory);
     dispatch(action);
+    console.log(result.data.content.ordersHistory);
   };
 };
 export const orderSubmit = (orderSubmit) => {

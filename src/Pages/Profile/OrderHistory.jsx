@@ -57,10 +57,42 @@ const OrderHistory = () => {
   useEffect(() => {
     const action = renderHistoryProduct();
     dispatch(action);
-  }, [historyProduct]);
+  }, []);
   return (
     <div>
-      <Table columns={columns} />
+      {historyProduct.map((product, index) => {
+        return (
+          <div key={index}>
+            <p>Order have been placed on: {product.date}</p>
+            <table className="table m-5">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Image</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                {product.orderDetail?.map((prod, index) => {
+                  return (
+                    <tr key={index}>
+                      <td>{product.id}</td>
+                      <td>
+                        <img src={prod.image} width={50} alt="" />
+                      </td>
+                      <td>{prod.price}</td>
+                      <td>{prod.quantity}</td>
+                      <td>{prod.price * prod.quantity}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        );
+      })}
     </div>
   );
 };
