@@ -16,6 +16,7 @@ const Login = () => {
 
   const responseFacebook = (res) => {
     console.log(res);
+
     if (res?.accessToken) {
       let facebookTokenAccess = {
         facebookToken: res.accessToken,

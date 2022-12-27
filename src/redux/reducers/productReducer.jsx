@@ -85,7 +85,9 @@ const initialState = {
       },
     ],
   },
-  cartProducts: JSON.parse(localStorage.getItem("cartProduct")),
+  cartProducts: JSON.parse(localStorage.getItem("cartProduct"))
+    ? JSON.parse(localStorage.getItem("cartProduct"))
+    : [],
   totalQuantity: JSON.parse(localStorage.getItem("totalQuantity")) + 1,
 
   numberQuantity: 1,
