@@ -4,10 +4,10 @@ import "../../assets/css/HeaderHome.css";
 import { useSelector } from "react-redux";
 import { ACCESS_TOKEN, USER_LOGIN, removeStore } from "../../util/config";
 const HeaderHome = () => {
-  const { userLogin, valid } = useSelector((state) => state.userReducer);
+  const { userLogin } = useSelector((state) => state.userReducer);
   const { totalQuantity } = useSelector((state) => state.productReducer);
   // const handleClick = (e) => {
-  //   if (userLogin) {
+  //   if (userLogin.email) {
   //     valid = false;
   //   } else {
   //     valid = true;

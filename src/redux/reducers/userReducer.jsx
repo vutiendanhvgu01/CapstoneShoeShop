@@ -22,6 +22,7 @@ const initialState = {
   userProfile: null,
   arrFavouriteProduct: [],
   userOrder: null,
+  facebookToken: {},
 };
 
 const userReducer = createSlice({
@@ -46,6 +47,9 @@ const userReducer = createSlice({
     historyProductAction: (state, action) => {
       state.historyProduct = action.payload;
     },
+    facebookLoginAction: (state, action) => {
+      state.userLoginResult = action.payload;
+    },
   },
 });
 
@@ -55,6 +59,7 @@ export const {
   getProfileAsyncApi,
   getProfile,
   arrFavouriteProduct,
+  facebookLoginAction,
 } = userReducer.actions;
 
 export default userReducer.reducer;
@@ -119,5 +124,27 @@ export const renderFavProduct = () => {
     });
     const action = arrFavouriteProduct(result.data.content.productsFavorite);
     dispatch(action);
+  };
+};
+export const facebookLogin = (facebookToken) => {
+  return async (dispatch) => {
+    const result = await axios({
+      url: "https://shop.cyberlearn.vn/api/Users/facebooklogin",
+      method: "POST",
+      data: facebookToken,
+    });
+    console.log(result.data.content);
+    const action = facebookLoginAction(result.data.content);
+    dispatch(action);
+    saveStoreJson(USER_LOGIN, result.data.content);
+    saveStore(ACCESS_TOKEN, result.data.content.accessToken);
+    // history.push("/profile");
+    //   //Gọi axios lấy dữ liệu api từ token
+
+    //   //Gọi api getprofile
+    const actionGetProfile = getProfileApi();
+    dispatch(actionGetProfile);
+    const actionFav = renderFavProduct();
+    dispatch(actionFav);
   };
 };

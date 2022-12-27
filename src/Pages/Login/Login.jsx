@@ -1,19 +1,28 @@
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import "../../assets/css/Login.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { loginApi } from "../../redux/reducers/userReducer";
-import { arrFavouriteProduct, renderFavProduct } from "../../redux/reducers/productReducer";
-// import FacebookLogin from "react-facebook-login";
+import { facebookLogin, loginApi } from "../../redux/reducers/userReducer";
+// import {
+//   arrFavouriteProduct,
+//   renderFavProduct,
+// } from "../../redux/reducers/productReducer";
+import FacebookLogin from "react-facebook-login";
 const Login = () => {
-  const {arrFavouriteProduct} = useSelector(state => state.productReducer)
-  const dispatch = useDispatch()
- 
+  // const { arrFavouriteProduct } = useSelector((state) => state.productReducer);
+  const dispatch = useDispatch();
 
   const responseFacebook = (res) => {
     console.log(res);
+    if (res?.accessToken) {
+      let facebookTokenAccess = {
+        facebookToken: res.accessToken,
+      };
+      const action = facebookLogin(facebookTokenAccess);
+      dispatch(action);
+    }
   };
   const form = useFormik({
     initialValues: {
@@ -90,7 +99,7 @@ const Login = () => {
               <span>Continnue with Facebook</span>
             </button>
           </div>
-          {/* <div class="form-control">
+          <div class="form-control">
             <FacebookLogin
               appId="5729721340457529"
               autoLoad={true}
@@ -99,7 +108,7 @@ const Login = () => {
               cssClass="btn btn-primary"
               icon="fa-facebook"
             />
-          </div> */}
+          </div>
         </form>
       </div>
     </div>

@@ -37,8 +37,6 @@ const Carts = () => {
   }, [cartProducts]);
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    console.log(order);
     const action = orderSubmit(order);
     dispatch(action);
   };
