@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 import "../../assets/css/Login.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { facebookLogin, loginApi } from "../../redux/reducers/userReducer";
@@ -11,7 +11,6 @@ import { facebookLogin, loginApi } from "../../redux/reducers/userReducer";
 // } from "../../redux/reducers/productReducer";
 import FacebookLogin from "react-facebook-login";
 const Login = () => {
-  // const { arrFavouriteProduct } = useSelector((state) => state.productReducer);
   const dispatch = useDispatch();
 
   const responseFacebook = (res) => {
@@ -25,6 +24,7 @@ const Login = () => {
       dispatch(action);
     }
   };
+
   const form = useFormik({
     initialValues: {
       email: "",
@@ -92,22 +92,22 @@ const Login = () => {
               </div>
             </div>
           </div>
-          <div className="form-content pt-3">
+          {/* <div className="form-content pt-3">
             <button className="btn-fb">
               <div className="logo-fb">
                 <i class="fab fa-facebook"></i>
               </div>
               <span>Continnue with Facebook</span>
             </button>
-          </div>
-          <div class="form-control">
+          </div> */}
+          <div className="form-control text-center" style={{ border: "none" }}>
             <FacebookLogin
               appId="5729721340457529"
               autoLoad={true}
               fields="name,email,picture"
               callback={responseFacebook}
-              cssClass="btn btn-primary"
-              icon="fa-facebook"
+              cssClass="btn btn-primary w-25 mt-5 ms-5 "
+              icon="fab fa-facebook"
             />
           </div>
         </form>

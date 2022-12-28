@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useFormik } from "formik";
+
 import {
   changeQuantity,
   deleteCartProduct,
   orderSubmit,
 } from "../../redux/reducers/productReducer";
-import { values } from "lodash";
 
 const Carts = () => {
   const { cartProducts } = useSelector((state) => state.productReducer);
@@ -28,7 +27,7 @@ const Carts = () => {
       orderDetail: arrOrders,
       email: String(userLogin.email),
     };
-    console.log(data);
+
     setOrder(data);
   };
 

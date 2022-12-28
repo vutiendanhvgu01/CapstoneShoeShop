@@ -2,11 +2,7 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ShoeCard from "../../Components/ShoeCard/ShoeCard";
-import {
-  arrFavouriteProduct,
-  renderFavProduct,
-} from "../../redux/reducers/productReducer";
-import { ACCESS_TOKEN, getStore } from "../../util/config";
+import { renderFavProduct } from "../../redux/reducers/productReducer";
 
 const Favourite = () => {
   const dispatch = useDispatch();

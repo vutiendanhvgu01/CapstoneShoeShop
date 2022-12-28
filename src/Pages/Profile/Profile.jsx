@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { renderFavProduct } from "../../redux/reducers/productReducer";
+// import { renderFavProduct } from "../../redux/reducers/productReducer";
 import { getProfileApi } from "../../redux/reducers/userReducer";
 import Favourite from "./Favourite";
 import OrderHistory from "./OrderHistory";
@@ -9,7 +9,7 @@ const Profile = () => {
   const [component, setComponent] = useState(true);
   const { userProfile } = useSelector((state) => state.userReducer);
   const [update, setUpdate] = useState(true);
-  const { arrFavouriteProduct } = useSelector((state) => state.productReducer);
+  // const { arrFavouriteProduct } = useSelector((state) => state.productReducer);
   const dispatch = useDispatch();
 
   useEffect(() => {

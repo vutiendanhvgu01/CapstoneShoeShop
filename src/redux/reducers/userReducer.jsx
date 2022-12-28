@@ -18,11 +18,13 @@ const initialState = {
   userLoginResult: null,
   sortBy: ["Name", "Price", "Quantity"],
   valid: true,
-  facebookToken: "",
+  facebookLoginToken: {
+    facebookToken: "",
+  },
   userProfile: null,
   arrFavouriteProduct: [],
   userOrder: null,
-  facebookToken: {},
+  // facebookToken: {},
 };
 
 const userReducer = createSlice({
@@ -126,12 +128,12 @@ export const renderFavProduct = () => {
     dispatch(action);
   };
 };
-export const facebookLogin = (facebookToken) => {
+export const facebookLogin = (facebookLoginToken) => {
   return async (dispatch) => {
     const result = await axios({
       url: "https://shop.cyberlearn.vn/api/Users/facebooklogin",
       method: "POST",
-      data: facebookToken,
+      data: facebookLoginToken,
     });
     console.log(result.data.content);
     const action = facebookLoginAction(result.data.content);
