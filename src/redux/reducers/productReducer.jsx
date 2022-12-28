@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import staticMethods from "antd/es/notification";
+// import staticMethods from "antd/es/notification";
 import axios from "axios";
-import { ACCESS_TOKEN, getStore, http, saveStoreJson } from "../../util/config";
+import { ACCESS_TOKEN, getStore, http } from "../../util/config";
 const initialState = {
   arrProduct: [
     {
@@ -85,9 +85,10 @@ const initialState = {
       },
     ],
   },
-  cartProducts: JSON.parse(localStorage.getItem("cartProduct")),
-  totalQuantity: JSON.parse(localStorage.getItem("totalQuantity")) + 1,
-
+  cartProducts: JSON.parse(localStorage.getItem("cartProduct"))
+    ? JSON.parse(localStorage.getItem("cartProduct"))
+    : [],
+  totalQuantity: JSON.parse(localStorage.getItem("totalQuantity")) + 0,
   numberQuantity: 1,
   orderSubmit: [],
   arrFavouriteProduct: [],
@@ -108,30 +109,23 @@ const productReducer = createSlice({
       const productCart = state.cartProducts.find(
         (prod) => prod.id == action.payload.id
       );
-      if (productCart) {
+      if (productCart && state.numberQuantity === 1) {
         productCart.quantity += 1;
-        localStorage.setItem("cartProduct", JSON.stringify(state.cartProducts));
-      } else if (productCart && state.numberQuantity > 1) {
+      }
+      if (productCart && state.numberQuantity > 1) {
         productCart.quantity += state.numberQuantity;
-
-        localStorage.setItem(
-          "totalQuantity",
-          JSON.stringify(state.totalQuantity)
-        );
-        localStorage.setItem("cartProduct", JSON.stringify(state.cartProducts));
       } else {
         state.cartProducts.push(action.payload);
-
-        localStorage.setItem(
-          "totalQuantity",
-          JSON.stringify(state.totalQuantity)
-        );
-        localStorage.setItem("cartProduct", JSON.stringify(state.cartProducts));
       }
 
       state.totalQuantity = state.cartProducts.reduce((td, prod) => {
         return td + prod.quantity;
       }, 0);
+      localStorage.setItem("cartProduct", JSON.stringify(state.cartProducts));
+      localStorage.setItem(
+        "totalQuantity",
+        JSON.stringify(state.totalQuantity)
+      );
     },
     deleteCartProduct: (state, action) => {
       state.cartProducts = state.cartProducts.filter(
@@ -264,6 +258,7 @@ export const renderHistoryProduct = () => {
     console.log(result.data.content.ordersHistory)
     const action = historyProductAction(result.data.content.ordersHistory);
     dispatch(action);
+    console.log(result.data.content.ordersHistory);
   };
 };
 export const orderSubmit = (orderSubmit) => {

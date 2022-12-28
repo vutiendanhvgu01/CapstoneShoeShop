@@ -2,7 +2,10 @@ import React from "react";
 import "../../assets/css/Home.css";
 import ShoeCard from "../../Components/ShoeCard/ShoeCard";
 import { useSelector, useDispatch } from "react-redux";
-import { getProductApi, renderFavProduct } from "../../redux/reducers/productReducer";
+import {
+  getProductApi,
+  renderFavProduct,
+} from "../../redux/reducers/productReducer";
 import { useEffect } from "react";
 const Home = () => {
   const { arrProduct } = useSelector((state) => state.productReducer);
@@ -15,7 +18,6 @@ const Home = () => {
   useEffect(() => {
     getAllProductApi();
   }, []);
-
 
   return (
     <>
@@ -50,12 +52,12 @@ const Home = () => {
           <div className="carousel-inner">
             <div className="carousel-item active">
               <div className="row carousel-content">
-                <div className="col-7 trainer">
+                <div className="col-lg-7 col-md-7 col-xl-7 col-xs-7 trainer">
                   <div className="img-product">
                     <img src={arrProduct[0]?.image} alt="" />
                   </div>
                 </div>
-                <div className="col-5 prodName">
+                <div className="col-lg-5 col-md-5 col-xl-5 col-xs-5 prodName">
                   <div className="prodName-content">
                     <h2>{arrProduct[0]?.name}</h2>
                     <h3>{arrProduct[0]?.description}</h3>
@@ -68,12 +70,12 @@ const Home = () => {
             </div>
             <div className="carousel-item">
               <div className="row carousel-content">
-                <div className="col-7 trainer">
-                <div className="img-product">
+                <div className="col-lg-7 col-md-7 col-xl-7 col-xs-7 trainer">
+                  <div className="img-product">
                     <img src={arrProduct[1]?.image} alt="" />
                   </div>
                 </div>
-                <div className="col-5 prodName">
+                <div className="col-lg-5 col-md-5 col-xl-5 col-xs-5 prodName">
                   <div className="prodName-content">
                     <h2>{arrProduct[1]?.name}</h2>
                     <h3>{arrProduct[1]?.description}</h3>
@@ -86,12 +88,12 @@ const Home = () => {
             </div>
             <div className="carousel-item">
               <div className="row carousel-content">
-                <div className="col-7 trainer">
-                <div className="img-product">
+                <div className="col-lg-7 col-md-7 col-xl-7 col-xs-7 trainer">
+                  <div className="img-product">
                     <img src={arrProduct[2]?.image} alt="" />
                   </div>
                 </div>
-                <div className="col-5 prodName">
+                <div className="col-lg-5 col-md-5 col-xl-5 col-xs-5 prodName">
                   <div className="prodName-content">
                     <h2>{arrProduct[2]?.name}</h2>
                     <h3>{arrProduct[2]?.description}</h3>
@@ -128,7 +130,10 @@ const Home = () => {
           <div className="row">
             {arrProduct.map((item, index) => {
               return (
-                <div className="col-4" key={index}>
+                <div
+                  className="col-lg-4 col-md-4 col-xl-4 col-xs-4"
+                  key={index}
+                >
                   <ShoeCard prod={item} />
                 </div>
               );

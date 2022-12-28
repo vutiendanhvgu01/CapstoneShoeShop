@@ -100,7 +100,7 @@ const Detail = () => {
         <div className="row">
           {productDetail.relatedProducts?.map((item, index) => {
             return (
-              <div className="col-4" key={index}>
+              <div className="col-lg-4 col-md-4 col-xl-4 col-xs-4" key={index}>
                 <ShoeCard prod={item} />
               </div>
             );
