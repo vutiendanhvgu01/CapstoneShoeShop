@@ -63,7 +63,7 @@ const ShoeCard = ({ prod }) => {
     if (like) {
       return <p>❤️</p>;
     }
-    return <p>♡</p>;
+    return <p sytle={{fontSize:'18px'}}>♡</p>;
   };
   return (
     <>

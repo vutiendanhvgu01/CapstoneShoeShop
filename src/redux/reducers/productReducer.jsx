@@ -261,6 +261,7 @@ export const renderHistoryProduct = () => {
         Authorization: `Bearer ${getStore(ACCESS_TOKEN)}`,
       },
     });
+    console.log(result.data.content.ordersHistory)
     const action = historyProductAction(result.data.content.ordersHistory);
     dispatch(action);
   };
