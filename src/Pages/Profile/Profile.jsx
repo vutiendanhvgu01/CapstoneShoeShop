@@ -4,7 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProfileApi } from "../../redux/reducers/userReducer";
 import Favourite from "./Favourite";
 import OrderHistory from "./OrderHistory";
-
+import { useFormik } from "formik";
+import * as yup from "yup";
+import UpDateProfile from "./UpDateProfile";
 const Profile = () => {
   const [component, setComponent] = useState(true);
   const { userProfile } = useSelector((state) => state.userReducer);
@@ -26,7 +28,25 @@ const Profile = () => {
     }
     return <Favourite />;
   };
-
+  const form = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+      name: "",
+      gender: true,
+      phone:''
+    },
+    validationSchema: yup.object().shape({
+      email: yup
+        .string()
+        .required("Email cannot be blank!")
+        .email("Email is invalid!"),
+      password: yup.string().required("Password cannot be blank!"),
+    }), 
+    onSubmit: (values) =>{
+      console.log(values);
+    }
+  });
   return (
     <>
       <div className="container-fluid">
@@ -44,18 +64,20 @@ const Profile = () => {
                   <p>Email</p>
                   <input
                     type="email"
+                    name='email'
                     className="form-control"
                     value={userProfile?.email}
-                    disabled={update}
+                    disabled={true}
                   />
                 </div>
                 <div className="form-group">
                   <p>Phone</p>
                   <input
+                  name='phone'
                     type="phone"
                     className="form-control"
                     value={userProfile?.phone}
-                    disabled={update}
+                    disabled={true}
                   />
                 </div>
               </div>
@@ -65,10 +87,11 @@ const Profile = () => {
                 <div className="form-group">
                   <p>Name</p>
                   <input
+                  name='name'
                     type="name"
                     className="form-control"
                     value={userProfile?.name}
-                    disabled={update}
+                    disabled={true}
                   />
                 </div>
                 <div className="form-group">
@@ -76,8 +99,8 @@ const Profile = () => {
                   <input
                     type="phone"
                     className="form-control"
-                    value={`**********`}
-                    disabled={update}
+                    value='********'
+                    disabled={true}
                   />
                 </div>
                 <div class="gender row pt-5">
@@ -90,7 +113,7 @@ const Profile = () => {
                       name="gender"
                       id="male"
                       checked={userProfile?.gender}
-                      // disabled={true}
+                      disabled={!userProfile?.gender}
                     />
                     <label for="male">Male</label>
                   </div>
@@ -108,12 +131,12 @@ const Profile = () => {
               </div>
               <button
                 className="btn btn-success"
-                onClick={() => {
-                  setUpdate(false);
-                }}
+                data-bs-toggle="modal" data-bs-target="#modalId"
+              
               >
                 Update Profile
               </button>
+              <UpDateProfile/>
             </div>
           </div>
         </div>
