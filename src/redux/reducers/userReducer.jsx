@@ -138,9 +138,10 @@ export const facebookLogin = (facebookLoginToken) => {
     console.log(result.data.content);
     const action = facebookLoginAction(result.data.content);
     dispatch(action);
+
+    history.push("/profile");
     saveStoreJson(USER_LOGIN, result.data.content);
     saveStore(ACCESS_TOKEN, result.data.content.accessToken);
-    // history.push("/profile");
     //   //Gọi axios lấy dữ liệu api từ token
 
     //   //Gọi api getprofile
