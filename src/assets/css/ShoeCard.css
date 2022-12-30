@@ -14,9 +14,10 @@
     background-color: #F8F8F8;
     padding: 0;
     width: 334px;
-    height: 450px;
+    height: 500px;
     margin-top: 200px;
     margin-left: 100px;
+    aspect-ratio: 1;
   }
   .product-item .product-img {
     text-align: center;
@@ -77,15 +78,14 @@
   }
 
 
-  .btn.btn-like {
-    /* color:transparent; */
-    border: 1px solid black;
-  }
-  .btn.btn-like .svg-inline--fa{
-  
-  color:red
-  }
+.icon-unlike {
+  font-size: 30px;
+  color:#000;
 
-  .btn.btn-like:hover i {
-    color: red;
-  }
+}
+
+.btn-like {
+  background-color: #F8F8F8;
+  padding-left:1.5rem;
+  padding-top:1rem;
+}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import "../../assets/css/HeaderHome.css";
 import { useSelector } from "react-redux";
@@ -6,6 +6,7 @@ import { ACCESS_TOKEN, USER_LOGIN, removeStore } from "../../util/config";
 const HeaderHome = () => {
   const { userLogin, valid } = useSelector((state) => state.userReducer);
   const { totalQuantity } = useSelector((state) => state.productReducer);
+  const [active,setActive] = useState(false)
   const handleClick = (e) => {
     if (userLogin.email) {
       valid = false;
@@ -48,6 +49,7 @@ const HeaderHome = () => {
       </>
     );
   };
+
   return (
     <div>
       <header className="header">
@@ -74,19 +76,19 @@ const HeaderHome = () => {
       </header>
       <section className="nav">
         <nav className="nav-content">
-          <NavLink to="" className="nav-item active">
+          <NavLink to="" className="nav-item nav-item-custom" >
             Home
           </NavLink>
-          <NavLink to="/home" className="nav-item">
+          <NavLink to="" className="nav-item nav-item-custom">
             Men
           </NavLink>
-          <NavLink to="" className="nav-item">
+          <NavLink to="" className="nav-item nav-item-custom">
             Woman
           </NavLink>
-          <NavLink to="" className="nav-item">
+          <NavLink to="" className="nav-item nav-item-custom">
             Kid
           </NavLink>
-          <NavLink to="" className="nav-item">
+          <NavLink to="" className="nav-item nav-item-custom">
             Sport
           </NavLink>
         </nav>

@@ -36,7 +36,8 @@
     margin-bottom: 0;
   }
   .header .header-content .header-right .num {
-    font-size: 30px;
+    margin-left:8px;
+    font-size: 24px;
     font-weight: 300;
     line-height: 36px;
     font-style: normal;
@@ -45,13 +46,38 @@
     cursor: pointer;
   }
   .header .header-content .header-right .item-list {
+    position: relative;
     font-size: 16px;
     font-weight: 300;
     line-height: 19px;
     font-style: normal;
-    padding-right: 20px;
+    margin-right: 20px;
     color: white;
     cursor: pointer;
+    transition: all 0.5s ease;
+  }
+
+  .header .header-content .header-right .item-list:hover {
+    color: #6200EE
+  }
+  .header .header-content .header-right .item-list::after {
+    content:'';
+    position: absolute;
+    left:0;
+    bottom:-5px;
+    width: 0;
+    height: 2px;
+  background: white;
+  transition: all 0.5s ease;
+  }
+
+  .header .header-content .header-right .item-list:hover::after {
+    width: 100%;
+    background: #6200EE;
+  }
+
+  .icon-cart {
+    color:white
   }
 
 

@@ -61,15 +61,15 @@ const ShoeCard = ({ prod }) => {
 
   const renderLike = () => {
     if (like) {
-      return <p>❤️</p>;
+      return <p className="icon-like">❤️</p>;
     }
-    return <p style={{ fontSize: "18px" }}>♡</p>;
+    return <p className="icon-unlike" >♡</p>;
   };
   return (
     <>
       <div className="product-item">
         <button
-          className="btn btn-like"
+          className="btn-like"
           onClick={() => {
             setLike(!like);
             handleLike();
