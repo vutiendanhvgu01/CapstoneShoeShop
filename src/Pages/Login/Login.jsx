@@ -79,22 +79,24 @@ const Login = () => {
             )}
           </div>
           <div className="row form-content">
-              <div className="login">
-              <NavLink to="/register" className="register">Register</NavLink>
-                <button type="submit" className="btn-login">
-                  Login
-                </button>
-              </div>
-              <FacebookLogin
-                  appId="5729721340457529"
-                  autoLoad={true}
-                  fields="name,email,picture"
-                  callback={responseFacebook}
-                  cssClass="btn btn-primary btn-login-fb"
-                  icon="fab fa-facebook"
-                />
+            <div className="login">
+              <NavLink to="/register" className="register">
+                Register
+              </NavLink>
+              <button type="submit" className="btn-login">
+                Login
+              </button>
             </div>
-       
+            <FacebookLogin
+              appId="5729721340457529"
+              autoLoad={false}
+              fields="name,email,picture"
+              callback={responseFacebook}
+              cssClass="btn btn-primary btn-login-fb"
+              icon="fab fa-facebook"
+            />
+          </div>
+
           {/* <div className="form-content pt-3">
             <button className="btn-fb">
               <div className="logo-fb">
@@ -103,7 +105,6 @@ const Login = () => {
               <span>Continnue with Facebook</span>
             </button>
           </div> */}
-
         </form>
       </div>
     </div>

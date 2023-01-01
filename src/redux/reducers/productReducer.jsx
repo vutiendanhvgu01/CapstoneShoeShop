@@ -111,8 +111,7 @@ const productReducer = createSlice({
       );
       if (productCart && state.numberQuantity === 1) {
         productCart.quantity += 1;
-      }
-      if (productCart && state.numberQuantity > 1) {
+      } else if (productCart && state.numberQuantity > 1) {
         productCart.quantity += state.numberQuantity;
       } else {
         state.cartProducts.push(action.payload);
@@ -255,7 +254,7 @@ export const renderHistoryProduct = () => {
         Authorization: `Bearer ${getStore(ACCESS_TOKEN)}`,
       },
     });
-    console.log(result.data.content.ordersHistory)
+    console.log(result.data.content.ordersHistory);
     const action = historyProductAction(result.data.content.ordersHistory);
     dispatch(action);
     console.log(result.data.content.ordersHistory);

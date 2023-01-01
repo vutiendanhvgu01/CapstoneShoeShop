@@ -149,5 +149,6 @@ export const facebookLogin = (facebookLoginToken) => {
     dispatch(actionGetProfile);
     const actionFav = renderFavProduct();
     dispatch(actionFav);
+    window.location.reload();
   };
 };
