@@ -56,7 +56,7 @@ const Login = () => {
               className="form-control"
               type="text"
               name="email"
-              placeholder="email"
+              placeholder="Enter your email"
               onChange={form.handleChange}
               onBlur={form.handleBlur}
             />
@@ -70,7 +70,7 @@ const Login = () => {
               className="form-control"
               name="password"
               type="password"
-              placeholder="password"
+              placeholder="Enter your password"
               onChange={form.handleChange}
               onBlur={form.handleBlur}
             />
@@ -79,19 +79,22 @@ const Login = () => {
             )}
           </div>
           <div className="row form-content">
-            <div className="col-5">
-              <div className="register">
-                <NavLink to="/register">Register now ?</NavLink>
-              </div>
-            </div>
-            <div className="col-2">
-              <div className="login form-group">
+              <div className="login">
+              <NavLink to="/register" className="register">Register</NavLink>
                 <button type="submit" className="btn-login">
                   Login
                 </button>
               </div>
+              <FacebookLogin
+                  appId="5729721340457529"
+                  autoLoad={true}
+                  fields="name,email,picture"
+                  callback={responseFacebook}
+                  cssClass="btn btn-primary btn-login-fb"
+                  icon="fab fa-facebook"
+                />
             </div>
-          </div>
+       
           {/* <div className="form-content pt-3">
             <button className="btn-fb">
               <div className="logo-fb">
@@ -100,16 +103,7 @@ const Login = () => {
               <span>Continnue with Facebook</span>
             </button>
           </div> */}
-          <div className="form-control text-center" style={{ border: "none" }}>
-            <FacebookLogin
-              appId="5729721340457529"
-              autoLoad={true}
-              fields="name,email,picture"
-              callback={responseFacebook}
-              cssClass="btn btn-primary w-25 mt-5 ms-5 "
-              icon="fab fa-facebook"
-            />
-          </div>
+
         </form>
       </div>
     </div>

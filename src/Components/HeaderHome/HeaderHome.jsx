@@ -21,8 +21,12 @@ const HeaderHome = () => {
     if (userLogin) {
       return (
         <>
-          <NavLink to="/profile" className="nav-link mx-3 text-white">
+          <NavLink to="/profile" className="nav-link text-white">
+            <div className="profile-name">
+
+
             Hello ! {userLogin.email}
+            </div>
           </NavLink>
           <NavLink
             to="/register"
@@ -63,8 +67,9 @@ const HeaderHome = () => {
             <NavLink to="/search" className="item-list">
               <i class="fa fa-search"></i> Search
             </NavLink>
-            <NavLink className="icon-cart" to="/carts" onClick={handleClick} />
-            <NavLink className="num" to="/carts">
+          
+            <NavLink className="num" to="/carts" onClick={handleClick} >
+            <i class="fa fa-shopping-cart"></i>  
               ({totalQuantity})
             </NavLink>
             {/* <NavLink to="/login" className="item-list">

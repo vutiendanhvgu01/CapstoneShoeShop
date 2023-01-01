@@ -122,7 +122,7 @@ const Home = () => {
             <img src="./image/Polygon 1.png" alt="" />
           </button>
         </div>
-        <div className="pt-5">
+        <div className="pt-5 product-content">
           <div className="product-feature">
             <h1>Product Feature</h1>
           </div>

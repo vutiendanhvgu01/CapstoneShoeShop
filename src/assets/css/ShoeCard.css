@@ -13,11 +13,11 @@
     position: relative;
     background-color: #F8F8F8;
     padding: 0;
-    width: 334px;
-    height: 500px;
+    width: 400px;
+    height: 550px;
     margin-top: 200px;
     margin-left: 100px;
-    aspect-ratio: 1;
+    border-radius: 10px;
   }
   .product-item .product-img {
     text-align: center;
@@ -30,7 +30,7 @@
   }
    .product-item .product-desc h5 {
     font-style: normal;
-    font-weight: 300;
+    font-weight: 400;
     font-size: 24px;
     line-height: 29px;
     color:black;
@@ -43,6 +43,7 @@
     color: #CBC9C9;
   }
   .product-item .product-btn {
+    border-radius: 10px;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -53,8 +54,8 @@
     width: 100%;
     background-color: #9DE167;
     padding: 18px 0;
-    font-style: normal;
-    font-weight: 200;
+    font-style: italic;
+    font-weight: 500;
     font-size: 24px;
     line-height: 29px;
     color: black;

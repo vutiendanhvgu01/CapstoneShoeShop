@@ -46,7 +46,7 @@ const Search = () => {
     <>
       <div className="search">
         <div className=" d-flex">
-          <div className="form-group">
+          <div className="form-group search-input">
             <label for="keyword">Search</label>
 
             <input

@@ -29,8 +29,11 @@
     background-image: url(../image/cart.png);
     width: 31px;
     height: 31px;
+    transition: all 0.5s ease;
     cursor: pointer;
   }
+
+
   .header .header-content .header-right a {
     display: block;
     margin-bottom: 0;
@@ -44,6 +47,18 @@
     padding-right: 10px;
     color: white;
     cursor: pointer;
+    transition: all 0.5s ease;
+  }
+  .header .header-content .header-right .num:hover {
+    color: #6200EE;
+  }
+
+  .profile-name{
+    margin-right:10px;
+    transition: all 0.5s ease;
+  }
+  .profile-name:hover {
+    color:#6200EE;
   }
   .header .header-content .header-right .item-list {
     position: relative;
@@ -51,11 +66,13 @@
     font-weight: 300;
     line-height: 19px;
     font-style: normal;
-    margin-right: 20px;
+    margin-right:10px;
     color: white;
     cursor: pointer;
     transition: all 0.5s ease;
   }
+
+
 
   .header .header-content .header-right .item-list:hover {
     color: #6200EE
