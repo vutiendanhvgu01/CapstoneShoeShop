@@ -44,7 +44,7 @@ const HeaderHome = () => {
     }
     return (
       <>
-        <NavLink to="/login" className="nav-link mx-3 text-white">
+        <NavLink to="/login" className="nav-link mx-3 header-login">
           Login
         </NavLink>
         <NavLink to="/register" className="item-list">

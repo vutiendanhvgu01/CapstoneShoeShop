@@ -104,9 +104,11 @@ const UpDateProfile = () => {
         >
           <form className="modal-content" onSubmit={form.handleSubmit}>
             <div className="modal-header">
-              <h5 className="modal-title" id="modalTitleId">
+              <h2 className="modal-title" id="modalTitleId">
+                <b>
                 Cập nhật thông tin
-              </h5>
+                  </b>
+              </h2>
               <button
                 type="button"
                 className="btn-close"
@@ -121,6 +123,7 @@ const UpDateProfile = () => {
                   type="email"
                   name="email"
                   className="form-control"
+                  placeholder="Enter your email"
                   //    value={userProfile?.email}
                   //    disabled={true}
                   onChange={form.handleChange}
@@ -133,6 +136,7 @@ const UpDateProfile = () => {
               <div className="form-group">
                 <p>Password</p>
                 <input
+                placeholder="Enter your password"
                   type="password"
                   name="password"
                   className="form-control"
@@ -146,6 +150,7 @@ const UpDateProfile = () => {
               <div className="form-group">
                 <p>Name</p>
                 <input
+                placeholder="Enter your name"
                   type="name"
                   name="name"
                   className="form-control"
@@ -154,8 +159,10 @@ const UpDateProfile = () => {
                 />
               </div>
               <div className="form-group">
-                <p>Phone</p>
+                <p className="phone">Phone</p>
                 <input
+                placeholder="Phone number"
+        
                   type="text"
                   name="phone"
                   className="form-control"
@@ -164,7 +171,7 @@ const UpDateProfile = () => {
                 />
               </div>
               <div class="gender">
-                <div className="">
+                <div className="gender-title">
                   <p>Gender:</p>
                 </div>
                 <div className="gender-choose d-flex">
@@ -180,6 +187,7 @@ const UpDateProfile = () => {
                     <label for="male">Male</label>
 
                     <input
+                    className='female-gender'
                       type="radio"
                       name="gender"
                       id="female"

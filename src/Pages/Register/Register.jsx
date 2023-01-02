@@ -49,7 +49,7 @@ const Register = () => {
                 <input
                   type="text"
                   name="email"
-                  placeholder="email"
+                  placeholder="Enter your email"
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
                 />
@@ -64,7 +64,7 @@ const Register = () => {
                 <input
                   type="text"
                   name="name"
-                  placeholder="name"
+                  placeholder="Enter your name"
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
                 />
@@ -79,7 +79,7 @@ const Register = () => {
                 <input
                   type="password"
                   name="password"
-                  placeholder="password"
+                  placeholder="Password"
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
                 />
@@ -94,7 +94,7 @@ const Register = () => {
                 <input
                   type="text"
                   name="phone"
-                  placeholder="phone"
+                  placeholder="Phone"
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
                 />
@@ -109,7 +109,7 @@ const Register = () => {
                 <input
                   type="password"
                   name="passwordConfirm"
-                  placeholder="password confirm"
+                  placeholder="Password confirm"
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
                 />

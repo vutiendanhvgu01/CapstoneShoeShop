@@ -25,6 +25,29 @@
     margin-right: 30px;
     align-items: center;
   }
+  .header-login {
+    transition: all 0.5s ease;
+    position: relative;
+    
+  }
+
+  .header-login::after {
+    content:'';
+    position: absolute;
+    left:0;
+    bottom:-5px;
+    width: 0;
+    height: 2px;
+  background: #6200EE;
+  transition: all 0.5s ease;
+  }
+  .header-login:hover {
+    color: #6200EE;
+  }
+
+  .header-login:hover::after{
+    width: 100%;
+  }
   .header .header-content .header-right .icon-cart {
     background-image: url(../image/cart.png);
     width: 31px;

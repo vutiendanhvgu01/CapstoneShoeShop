@@ -7,6 +7,7 @@ import OrderHistory from "./OrderHistory";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import UpDateProfile from "./UpDateProfile";
+import "../../assets/css/profile.css";
 const Profile = () => {
   const [component, setComponent] = useState(true);
   const { userProfile } = useSelector((state) => state.userReducer);
@@ -58,9 +59,9 @@ const Profile = () => {
                 <img src={userProfile?.avatar} alt="..." className="w-100" />
               </div>
             </div>
-            <div className="col-lg-5 col-md-5 col-xl-5 col-xs-5">
+            <div className="col-lg-5 col-md-5 col-xl-5 col-xs-5 profile-input">
               <div className="profile-left">
-                <div className="form-group">
+                <div className="form-group ">
                   <p>Email</p>
                   <input
                     type="email"
@@ -70,7 +71,7 @@ const Profile = () => {
                     disabled={true}
                   />
                 </div>
-                <div className="form-group">
+                <div className="form-group ">
                   <p>Phone</p>
                   <input
                   name='phone'
@@ -82,7 +83,7 @@ const Profile = () => {
                 </div>
               </div>
             </div>
-            <div className="col-lg-5 col-md-5 col-xl-5 col-xs-5">
+            <div className="col-lg-5 col-md-5 col-xl-5 col-xs-5 profile-input">
               <div className="profile-right">
                 <div className="form-group">
                   <p>Name</p>
@@ -103,11 +104,11 @@ const Profile = () => {
                     disabled={true}
                   />
                 </div>
-                <div class="gender row pt-5">
+                <div class="gender row">
                   <div className="col-lg-2 col-md-2 col-xl-2 col-xs-2">
                     <p>Gender:</p>
                   </div>
-                  <div class="male col-lg-2 col-md-2 col-xl-2 col-xs-2 pt-md-3">
+                  <div class="male col-lg-2 col-md-2 col-xl-2 col-xs-2">
                     <input
                       type="radio"
                       name="gender"
@@ -117,7 +118,7 @@ const Profile = () => {
                     />
                     <label for="male">Male</label>
                   </div>
-                  <div class="female col-lg-2 col-md-2 col-xl-2 col-xs-2 pt-md-3">
+                  <div class="female col-lg-2 col-md-2 col-xl-2 col-xs-2">
                     <input
                       type="radio"
                       name="gender"
@@ -130,7 +131,7 @@ const Profile = () => {
                 </div>
               </div>
               <button
-                className="btn btn-success"
+                className="btn btn-update"
                 data-bs-toggle="modal" data-bs-target="#modalId"
               
               >
@@ -142,8 +143,9 @@ const Profile = () => {
         </div>
         <hr></hr>
         <div className="profile-footer">
+          <div className="btn-footer-profile">
           <button
-            className="btn"
+            className="btn btn-history btn-white btn-animated"
             onClick={() => {
               setComponent(true);
             }}
@@ -151,13 +153,16 @@ const Profile = () => {
             Order history
           </button>
           <button
-            className="btn"
+            className="btn btn-favorite btn-white btn-animated"
             onClick={() => {
               setComponent(false);
             }}
           >
             Favourite
           </button>
+
+          </div>
+     
 
           {renderProfileFooter()}
         </div>
